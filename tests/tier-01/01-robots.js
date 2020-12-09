@@ -265,7 +265,7 @@ describe("Tier One: Robots", () => {
 
     // This test expects that you've set up a Route for AllRobots.
     // You should take a look at app/components/Routes.js
-    xit("renders <AllRobots /> at /robots", () => {
+    it("renders <AllRobots /> at /robots", () => {
       const wrapper = mount(
         <Provider store={store}>
           <MemoryRouter initialEntries={["/robots"]}>
@@ -277,8 +277,19 @@ describe("Tier One: Robots", () => {
       expect(wrapper.find(AllProjects)).to.have.length(0);
     });
 
-    xit('*** navbar has links to "/robots" and "/" (homepage)', () => {
-      throw new Error("replace this error with your own test");
+    // !CUSTOM Test 
+    it('*** navbar has links to "/robots" and "/" (homepage)', () => {
+      const wrapper = mount(
+        <Provider store={store}>
+          <MemoryRouter initialEntries={["/robots"]}>
+            <Routes />
+          </MemoryRouter>
+        </Provider>
+      );
+
+      expect(wrapper.containsMatchingElement(<a href="/">Home</a>)).to.equal(true);
+      expect(wrapper.containsMatchingElement(<a href="/robots">Robots</a>)).to.equal(true);
+
     });
   });
 

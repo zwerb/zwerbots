@@ -23,6 +23,24 @@ nav {
   display: flex;
   height: 80px;
   padding: 10px;
+} 
+
+nav a {
+  color: #c0c0c0;
+  text-decoration: none;
+  margin: 5px;
+}
+
+nav a:hover {
+  color: #90a0c0;
+  text-decoration: none;
+  margin: 5px;
+}
+
+nav a .active {
+  color: #70b0e0;
+  text-decoration: none;
+  margin: 5px;
 }
 
 main {
