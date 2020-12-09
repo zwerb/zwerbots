@@ -216,7 +216,7 @@ describe("Tier One: Robots", () => {
     // This test is expecting your component to dispatch a thunk after it mounts
     // Remember that getRobots prop from an earlier test? Now's a good time
     // for a mapDispatch.
-    xit("initializes robots from the server when the application loads the /robots route", async () => {
+    it("initializes robots from the server when the application loads the /robots route", async () => {
       const reduxStateBeforeMount = store.getState();
       expect(reduxStateBeforeMount.robots).to.deep.equal([]);
       mount(
@@ -234,7 +234,7 @@ describe("Tier One: Robots", () => {
 
     // This test is expecting your component to render the robots from the
     // Redux store. Now's a good time for a mapState.
-    xit("<AllRobots /> renders robots from the Redux store", async () => {
+    it("<AllRobots /> renders robots from the Redux store", async () => {
       const wrapper = mount(
         <Provider store={store}>
           <MemoryRouter initialEntries={["/robots"]}>

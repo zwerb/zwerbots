@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import { fetchRobots } from "../redux/robots";
 
 // !REMOVE - Development Placeholder
 const robots = [
@@ -11,7 +12,8 @@ const robots = [
 // (below) is not connected to Redux, while the default export (at the very
 // bottom) is connected to Redux. Our tests should cover _both_ cases.
 export class AllRobots extends React.Component {
-  async componentDidMount(){
+  async componentDidMount() {
+
     this.props.getRobots();
   }
   render() {
@@ -34,12 +36,16 @@ export class AllRobots extends React.Component {
   }
 }
 
-const mapState = () => {
-  return {};
+const mapState = (state) => {
+  return {
+    robots: state.robots
+  };
 };
 
-const mapDispatch = () => {
-  return {};
+const mapDispatch = (dispatch) => {
+  return {
+    getRobots: () => dispatch(fetchRobots()),
+  };
 };
 
 export default connect(mapState, mapDispatch)(AllRobots);
