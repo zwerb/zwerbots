@@ -13,19 +13,25 @@ const robots = [
 // bottom) is connected to Redux. Our tests should cover _both_ cases.
 export class AllRobots extends React.Component {
   async componentDidMount() {
-
     this.props.getRobots();
   }
   render() {
     return (
-      <div>
+      <div class="all-robots">
         {this.props.robots && this.props.robots.length > 0 ? (
           this.props.robots.map((robot) => (
-            <div key={robot.id}>
-              <p>{robot.name}</p>
-              <p>
-                <img src={robot.imageUrl} />
-              </p>
+            <div key={robot.id} className="single-robot">
+              <div class="robot-bio-data">
+                <div class="robot-avatar">
+                  {" "}
+                  <img className="avatar" src={robot.imageUrl} />
+                </div>
+                <div class="robot-name">{robot.name}</div>
+              </div>
+              <div class="robot-details">
+                <div class="robot-fuelLevel">Fuel Level {robot.fuelLevel}</div>
+                <div class="robot-fuelType">Fuel Type: {robot.fuelType}</div>
+              </div>
             </div>
           ))
         ) : (
@@ -38,7 +44,7 @@ export class AllRobots extends React.Component {
 
 const mapState = (state) => {
   return {
-    robots: state.robots
+    robots: state.robots,
   };
 };
 

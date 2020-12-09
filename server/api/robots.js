@@ -15,7 +15,6 @@ router.get("/", async (req, res, next) => {
   try {
     // !REPLACE - Below Development Comment
     const robots = await Robot.findAll();
-    console.log('axios robots response: ',robots)
     res.json(robots);
   } catch (error) {
     next(error);
