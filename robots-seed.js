@@ -23,13 +23,13 @@ const maxImageUrls = 50;
 const imageUrlBase = "images/robots/Robot_Avatars_";
 
 function imageUrlGenerator(index=0){
-  return index < maxImageUrls ? imageUrlBase + (index + 1) + '.png' : imageUrlBase + 1 + '.png'
+  return index < maxImageUrls && index >= 0 ? imageUrlBase + (index + 1) + '.png' : imageUrlBase + (Math.floor(Math.random() * (maxImageUrls - 1)) + 1) + '.png'
 }
 
 const fuelTypes = ["diesel", "electric", "gas"];
 
 function randomFuelType() {
-  return fuelTypes[Math.floor(Math.random() * 3)];
+  return fuelTypes[Math.floor(Math.random() * fuelTypes.length)];
 }
 
 function randomFuelLevel() {
@@ -44,5 +44,8 @@ function generateRandomRobots() {
     fuelLevel: randomFuelLevel(),
   }));
 }
+
+// !REMOVE - console log
+console.log(generateRandomRobots());
 
 module.exports = generateRandomRobots();
