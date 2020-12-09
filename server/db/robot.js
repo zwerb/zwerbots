@@ -38,7 +38,9 @@ const Robot = db.define("robot", {
     defaultValue: "electric",
   },
   fuelLevel: {
-    type: Sequelize.DECIMAL(10, 2),
+    // !REMOVE - had to use FLOAT to pass the specs
+    // type: Sequelize.DECIMAL(10, 2),
+    type: Sequelize.FLOAT,
     allowNull: false,
     validate: {
       notEmpty: true,

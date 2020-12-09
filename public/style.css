@@ -48,6 +48,9 @@ main {
   display: flex;
   flex-direction: column;
   justify-content: center;
+
+  background: linear-gradient(#ffffff, #c0c0c0);
+  padding: 10px;
 }
 
 .avatar{

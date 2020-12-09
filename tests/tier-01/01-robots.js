@@ -188,7 +188,7 @@ describe("Tier One: Robots", () => {
         testStore = createStore(appReducer);
       });
 
-      // !CUSTOM Test 
+      // !CUSTOM Test
       it("*** returns the initial state by default", () => {
         const action = { type: "NOT_A_DEFINED_ACTION_TYPE", robots };
 
@@ -277,7 +277,7 @@ describe("Tier One: Robots", () => {
       expect(wrapper.find(AllProjects)).to.have.length(0);
     });
 
-    // !CUSTOM Test 
+    // !CUSTOM Test
     it('*** navbar has links to "/robots" and "/" (homepage)', () => {
       const wrapper = mount(
         <Provider store={store}>
@@ -287,13 +287,16 @@ describe("Tier One: Robots", () => {
         </Provider>
       );
 
-      expect(wrapper.containsMatchingElement(<a href="/">Home</a>)).to.equal(true);
-      expect(wrapper.containsMatchingElement(<a href="/robots">Robots</a>)).to.equal(true);
-
+      expect(wrapper.containsMatchingElement(<a href="/">Home</a>)).to.equal(
+        true
+      );
+      expect(
+        wrapper.containsMatchingElement(<a href="/robots">Robots</a>)
+      ).to.equal(true);
     });
   });
 
-  xdescribe("Express API", () => {
+  describe("Express API", () => {
     // Let's test our Express routes WITHOUT actually using the database.
     // By replacing the findAll methods on our Sequelize models with a spy,
     // we can ensure that our API tests won't fail just because
@@ -308,7 +311,7 @@ describe("Tier One: Robots", () => {
 
     // Consider writing your GET route in server/api/robots.js. And don't
     // forget to apply the express router to your API in server/api/index.js!
-    xit("GET /api/robots responds with all robots", async () => {
+    it("GET /api/robots responds with all robots", async () => {
       const response = await agent.get("/api/robots").expect(200);
       expect(response.body).to.deep.equal(robots);
       expect(Robot.findAll.calledOnce).to.be.equal(true);
@@ -328,7 +331,7 @@ describe("Tier One: Robots", () => {
     });
     afterEach(() => db.sync({ force: true }));
 
-    xit("has fields name, imageUrl, fuelType, fuelLevel", async () => {
+    it("has fields name, imageUrl, fuelType, fuelLevel", async () => {
       robot.notARealAttribute = "does not compute";
       const savedRobot = await Robot.create(robot);
       expect(savedRobot.name).to.equal("R2-D2");
@@ -338,11 +341,38 @@ describe("Tier One: Robots", () => {
       expect(savedRobot.notARealAttribute).to.equal(undefined);
     });
 
-    xit("*** name cannot be null or an empty string", () => {
-      throw new Error("replace this error with your own test");
+    it("*** name cannot be null or an empty string", async () => {
+      const robotA = {
+        name: "R2-D2",
+        imageUrl: "/images/r2d2.png",
+        fuelType: "electric",
+        fuelLevel: 88.34,
+      };
+      robotA.name = null;
+
+      try {
+        const nullNameRobot = await Robot.create(robotA);
+        if (nullNameRobot) {
+          throw Error("Validation should have failed with invalid name");
+        }
+      } catch (err) {
+        expect(err.message).to.not.have.string("Validation should have failed");
+      }
+
+      robotA.name = "";
+
+      try {
+        const emptyNameRobot = await Robot.create(robotA);
+        if (emptyNameRobot) {
+          throw Error("Validation should have failed with invalid name");
+        }
+      } catch (err) {
+        expect(err.message).to.not.have.string("Validation should have failed");
+      }
+
     });
 
-    xit("fuelType can only be gas, diesel, or electric (defaults to electric)", async () => {
+    it("fuelType can only be gas, diesel, or electric (defaults to electric)", async () => {
       robot.fuelType = "the power of love";
       try {
         const badFuelRobot = await Robot.create(robot);
@@ -357,7 +387,7 @@ describe("Tier One: Robots", () => {
       expect(defaultFuelRobot.fuelType).to.equal("electric");
     });
 
-    xit("fuelLevel must be between 0 and 100 (defaults to 100)", async () => {
+    it("fuelLevel must be between 0 and 100 (defaults to 100)", async () => {
       robot.fuelLevel = -10;
       try {
         const negativeFuelRobot = await Robot.create(robot);
@@ -389,7 +419,7 @@ describe("Tier One: Robots", () => {
     // command line.
     beforeEach(seed);
 
-    xit("populates the database with at least three robots", async () => {
+    it("populates the database with at least three robots", async () => {
       const seedRobots = await Robot.findAll();
       expect(seedRobots).to.have.lengthOf.at.least(3);
     });
