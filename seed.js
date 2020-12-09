@@ -4,7 +4,7 @@ const { db, Project, Robot } = require("./server/db");
 const robots = require("./robots-seed");
 
 // !REMOVE - console log
-console.log(robots);
+// console.log(robots);
 
 const seed = async () => {
   try {

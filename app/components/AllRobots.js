@@ -17,20 +17,20 @@ export class AllRobots extends React.Component {
   }
   render() {
     return (
-      <div class="all-robots">
+      <div className="all-robots">
         {this.props.robots && this.props.robots.length > 0 ? (
           this.props.robots.map((robot) => (
             <div key={robot.id} className="single-robot">
-              <div class="robot-bio-data">
-                <div class="robot-avatar">
+              <div className="robot-bio-data">
+                <div className="robot-avatar">
                   {" "}
                   <img className="avatar" src={robot.imageUrl} />
                 </div>
-                <div class="robot-name">{robot.name}</div>
+                <div className="robot-name">{robot.name}</div>
               </div>
-              <div class="robot-details">
-                <div class="robot-fuelLevel">Fuel Level {robot.fuelLevel}</div>
-                <div class="robot-fuelType">Fuel Type: {robot.fuelType}</div>
+              <div className="robot-details">
+                <div className="robot-fuelLevel">Fuel Level {robot.fuelLevel}</div>
+                <div className="robot-fuelType">Fuel Type: {robot.fuelType}</div>
               </div>
             </div>
           ))

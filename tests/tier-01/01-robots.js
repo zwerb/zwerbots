@@ -38,7 +38,7 @@ import AllRobots, {
 import AllProjects from "../../app/components/AllProjects";
 import Routes from "../../app/components/Routes";
 
-describe("Tier One: Robots", () => {
+xdescribe("Tier One: Robots", () => {
   // We'll use this array of robots as dummy data for testing purposes
   const robots = [
     { id: 1, name: "R2-D2", imageUrl: "/images/r2d2.png" },
@@ -411,7 +411,7 @@ describe("Tier One: Robots", () => {
       expect(defaultFuelLevelRobot.fuelLevel).to.equal(100);
     });
   });
-  describe("Seed File", () => {
+  xdescribe("Seed File", () => {
     // Once you've set up the Robot Sequelize model, it's a good time to seed
     // the database with some dummy data. Go edit seed.js. Note that the tests
     // run the seed file on the TEST database. When you're ready to interact
