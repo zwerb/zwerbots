@@ -1,12 +1,20 @@
-const { green, red } = require('chalk');
-const { db, Project, Robot } = require('./server/db');
+const { green, red } = require("chalk");
+const { db, Project, Robot } = require("./server/db");
+
+const robots = require("./robots-seed");
+
+// !REMOVE - console log
+console.log(robots);
 
 const seed = async () => {
   try {
     await db.sync({ force: true });
 
-    // seed your database here!
-
+    await Promise.all(
+      robots.map((robot) => {
+        return Robot.create(robot);
+      })
+    );
   } catch (err) {
     console.log(red(err));
   }
@@ -19,11 +27,11 @@ module.exports = seed;
 if (require.main === module) {
   seed()
     .then(() => {
-      console.log(green('Seeding success!'));
+      console.log(green("Seeding success!"));
       db.close();
     })
     .catch((err) => {
-      console.error(red('Oh noes! Something went wrong!'));
+      console.error(red("Oh noes! Something went wrong!"));
       console.error(err);
       db.close();
     });

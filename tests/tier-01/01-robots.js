@@ -293,7 +293,7 @@ describe("Tier One: Robots", () => {
     });
   });
 
-  describe("Express API", () => {
+  xdescribe("Express API", () => {
     // Let's test our Express routes WITHOUT actually using the database.
     // By replacing the findAll methods on our Sequelize models with a spy,
     // we can ensure that our API tests won't fail just because
