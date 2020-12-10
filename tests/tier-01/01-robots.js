@@ -38,7 +38,7 @@ import AllRobots, {
 import AllProjects from "../../app/components/AllProjects";
 import Routes from "../../app/components/Routes";
 
-describe("Tier One: Robots", () => {
+xdescribe("Tier One: Robots", () => {
   // We'll use this array of robots as dummy data for testing purposes
   const robots = [
     { id: 1, name: "R2-D2", imageUrl: "/images/r2d2.png" },

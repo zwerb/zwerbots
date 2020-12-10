@@ -30,6 +30,7 @@ const Project = db.define("project", {
     validate: {
       notEmpty: true,
     },
+    defaultValue: 'No Description'
   },
   deadline: {
     type: Sequelize.DATE(6),

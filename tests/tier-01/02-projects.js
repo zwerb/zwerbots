@@ -38,7 +38,7 @@ import AllProjects, {
 import AllRobots from "../../app/components/AllRobots";
 import Routes from "../../app/components/Routes";
 
-describe("Tier One: Projects", () => {
+xdescribe("Tier One: Projects", () => {
   // We'll use this array of projects as dummy data for testing purposes
   const projects = [
     { id: 1, title: "Build barn", description: "Lorem Ipsum" },
