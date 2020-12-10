@@ -17,6 +17,9 @@ const names = [
   "Imogene",
   "Esmi",
   "Hiroki",
+  "Shannon",
+  "Tibor",
+  "Moonbeam"
 ];
 
 const maxImageUrls = 50;
@@ -46,6 +49,6 @@ function generateRandomRobots() {
 }
 
 // !REMOVE - console log
-console.log(generateRandomRobots());
+// console.log(generateRandomRobots());
 
 module.exports = generateRandomRobots();

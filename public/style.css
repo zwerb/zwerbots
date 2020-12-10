@@ -14,6 +14,7 @@ body {
   padding: 0;
   margin: 0;
   width: 100vw;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 nav {
@@ -23,7 +24,7 @@ nav {
   display: flex;
   height: 80px;
   padding: 10px;
-} 
+}
 
 nav a {
   color: #c0c0c0;
@@ -37,7 +38,7 @@ nav a:hover {
   margin: 5px;
 }
 
-nav a .active {
+.active {
   color: #70b0e0;
   text-decoration: none;
   margin: 5px;
@@ -53,10 +54,12 @@ main {
   padding: 10px;
 }
 
-.avatar{
+.avatar {
   width: 50px;
   height: 50px;
 }
+
+/* Robot Displays Styling */
 
 .all-robots {
   display: flex;
@@ -103,7 +106,6 @@ main {
 }
 
 .robot-details {
-
   font-size: 0.9em;
   display: flex;
   flex-flow: row-reverse nowrap;
@@ -111,3 +113,126 @@ main {
   align-items: center;
 }
 
+/* Projects Displays Styling */
+
+.all-projects h4, .all-robots h4{
+  text-align: center;
+}
+
+.all-projects {
+  display: flex;
+  flex-flow: column;
+  justify-content: space-around;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.single-project {
+  display: flex;
+  flex-flow: column;
+  justify-content: space-around;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+
+  background: lavenderblush;
+  padding: 5px;
+  width: 320px;
+  height: 180px;
+  border: 1px solid silver;
+  margin-top: 10px;
+}
+
+.project-meta-data {
+  background: lightsteelblue;
+  padding: 2px;
+  border: 1px solid silver;
+  margin: 5px;
+  padding: 5px;
+  width: auto;
+  line-height: 35px;
+  color: darkslategrey;
+  font-weight: bold;
+  /* font-size: 2em; */
+  text-align: center;
+
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.project-status {
+  flex-basis: 1;
+  font-weight: bold;
+  /* border: 1px solid silver; */
+  font-size: 2em;
+  align-self: right;
+}
+
+/* .status-text{
+  position:  absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  text-align: center;
+  font-size: 20px;
+  color: white;
+} */
+
+.completed {
+  color: forestgreen
+}
+
+.in-progress {
+  color: maroon
+}
+
+.project-id {
+  flex-basis: 2;
+}
+
+.project-title {
+  flex-basis: 4;
+}
+
+
+.project-details {
+  font-size: 0.9em;
+  padding: 5px;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  align-items: left;
+}
+
+.project-deadline {
+  flex-basis: 1;
+  margin: 2px;
+  padding: 2px;
+  border: 1px solid silver;
+  width: auto;
+  background-color: lightgray;
+  justify-content: center;
+}
+
+.imminent{
+  background-color: lightpink;
+}
+
+.today{
+  background-color: lightsalmon;
+}
+
+.this-week{
+  background-color: lightyellow;
+}
+
+
+.project-description {
+  margin: 2px;
+  padding: 2px;
+  flex-basis: 4;
+}

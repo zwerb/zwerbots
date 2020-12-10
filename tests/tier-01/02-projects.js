@@ -119,14 +119,14 @@ describe("Tier One: Projects", () => {
       fakeStore = mockStore(initialState);
     });
     describe("set/fetch projects", () => {
-      xit("setProjects action creator", () => {
+      it("setProjects action creator", () => {
         expect(setProjects(projects)).to.deep.equal({
           type: "SET_PROJECTS",
           projects,
         });
       });
 
-      xit("fetchProjects thunk creator returns a thunk that GETs /api/projects", async () => {
+      it("fetchProjects thunk creator returns a thunk that GETs /api/projects", async () => {
         await fakeStore.dispatch(fetchProjects());
         const [getRequest] = mockAxios.history.get;
         expect(getRequest).to.not.equal(undefined);
@@ -145,11 +145,17 @@ describe("Tier One: Projects", () => {
         testStore = createStore(appReducer);
       });
 
-      xit("*** returns the initial state by default", () => {
-        throw new Error("replace this error with your own test");
+      it("*** returns the initial state by default", () => {
+        const action = { type: "NOT_A_DEFINED_ACTION_TYPE", projects };
+
+        const prevState = testStore.getState();
+        testStore.dispatch(action);
+        const newState = testStore.getState();
+
+        expect(newState.robots).to.be.deep.equal([]);
       });
 
-      xit("reduces on SET_PROJECTS action", () => {
+      it("reduces on SET_PROJECTS action", () => {
         const action = { type: "SET_PROJECTS", projects };
 
         const prevState = testStore.getState();
@@ -247,7 +253,7 @@ describe("Tier One: Projects", () => {
 
     // Consider writing your GET route in server/api/robots.js. And don't
     // forget to apply the express router to your API in server/api/index.js!
-    xit("GET /api/projects responds with all projects", async () => {
+    it("GET /api/projects responds with all projects", async () => {
       const response = await agent.get("/api/projects").expect(200);
       expect(response.body).to.deep.equal(projects);
       expect(Project.findAll.calledOnce).to.be.equal(true);

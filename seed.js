@@ -2,9 +2,11 @@ const { green, red } = require("chalk");
 const { db, Project, Robot } = require("./server/db");
 
 const robots = require("./robots-seed");
+const projects = require("./projects-seed");
 
 // !REMOVE - console log
 // console.log(robots);
+// console.log(projects);
 
 const seed = async () => {
   try {
@@ -15,6 +17,18 @@ const seed = async () => {
         return Robot.create(robot);
       })
     );
+
+    console.log('Seeded Robots.');
+
+    await Promise.all(
+      projects.map((robot) => {
+        return Project.create(robot);
+      })
+    );
+
+    console.log('Seeded Projects.');
+
+
   } catch (err) {
     console.log(red(err));
   }

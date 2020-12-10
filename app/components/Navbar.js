@@ -10,6 +10,9 @@ const Navbar = (props) => {
       <NavLink to="/robots" activeClassName="active">
         Robots
       </NavLink>
+      <NavLink to="/projects" activeClassName="active">
+        Projects
+      </NavLink>
     </div>
   );
 };

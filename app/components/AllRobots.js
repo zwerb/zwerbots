@@ -18,6 +18,7 @@ export class AllRobots extends React.Component {
   render() {
     return (
       <div className="all-robots">
+        <h4>Robots</h4>
         {this.props.robots && this.props.robots.length > 0 ? (
           this.props.robots.map((robot) => (
             <div key={robot.id} className="single-robot">

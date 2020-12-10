@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Navbar from "./Navbar";
 import AllRobots from "./AllRobots";
+import AllProjects from "./AllProjects";
 
 const Routes = () => {
   return (
@@ -12,7 +13,7 @@ const Routes = () => {
         </nav>
         <main>
           <h1>
-           StackBot Project Management
+           Zwerbots
           </h1>
           <Route
             exact
@@ -37,6 +38,15 @@ const Routes = () => {
             render={() => (
               <div>
                 <AllRobots />
+              </div>
+            )}
+          />
+          <Route
+            exact
+            path="/projects"
+            render={() => (
+              <div>
+                <AllProjects />
               </div>
             )}
           />
