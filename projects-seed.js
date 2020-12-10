@@ -142,13 +142,14 @@ function randomDescription() {
 // .toLocaleString('en-US', { timeZone: "America/New_York" })
 const usersTimeZone = "America/New_York";
 // new Date(new Date(new Date().getTime() + 24 * 60 * 60 * 1000).toLocaleString('en-US', { timeZone: usersTimeZone }))
-const minDeadline = 0.07 * 60 * 60 * 1000;
-const maxDeadline = 48 * 60 * 60 * 1000;
+const minDeadline = 0.01 * 60 * 60 * 1000;
+const maxDeadline = 12 * 60 * 60 * 1000;
+const offSetDeadline = 3 * 60 * 60 * 1000
 
 function randomDeadline() {
   let randomDeadline = Math.floor(
     Math.random() * (maxDeadline - minDeadline) + minDeadline
-  );
+  ) - offSetDeadline;
   let randomDate = new Date(
     new Date(new Date().getTime() + randomDeadline).toLocaleString("en-US", {
       timeZone: usersTimeZone,

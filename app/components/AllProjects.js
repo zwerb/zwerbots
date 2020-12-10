@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { fetchProjects } from "../redux/projects";
+import moment from 'moment'
 
 // !REPLACE - with user settings
 const usersTimeZone = "America/New_York";
@@ -41,9 +42,9 @@ export class AllProjects extends React.Component {
                 </div>
               </div>
               <div className="project-details">
-                <div className="project-deadline">Due: {project.deadline.toLocaleString('en-US', { timeZone: usersTimeZone })}</div>
+                <div className="project-deadline"><strong>Due:</strong> {project.deadline?moment(project.deadline).fromNow():'No Deadline'}</div>
                 <div className="project-description">
-                  Description: {project.description}
+                <strong>Description:</strong> {project.description}
                 </div>
               </div>
             </div>

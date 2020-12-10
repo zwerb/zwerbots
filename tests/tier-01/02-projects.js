@@ -60,7 +60,7 @@ describe("Tier One: Projects", () => {
 
     // This test is interested in the unconnected AllProjects component. It is
     // exported as a named export in app/components/AllProjects.js
-    xit("renders the projects passed in as props", () => {
+    it("renders the projects passed in as props", () => {
       const wrapper = mount(
         <UnconnectedAllProjects
           projects={projects}
@@ -72,7 +72,7 @@ describe("Tier One: Projects", () => {
       expect(wrapper.text()).to.include("Open the pod bay doors");
     });
 
-    xit("renders DIFFERENT projects passed in as props", () => {
+    it("renders DIFFERENT projects passed in as props", () => {
       const differentProjects = [
         {
           id: 4,
@@ -93,14 +93,52 @@ describe("Tier One: Projects", () => {
       expect(wrapper.text()).to.include("Shut down all the garbage compactors");
     });
 
-    xit('*** renders "No Projects" if passed an empty array of projects or if projects is undefined', () => {
-      throw new Error("replace this error with your own test");
+    it('*** renders "No Projects" if passed an empty array of projects or if projects is undefined', () => {
+      const emptyProjects = [];
+      const wrapperA = mount(
+        <UnconnectedAllProjects
+          projects={emptyProjects}
+          getProjects={getProjectsSpy}
+        />
+      );
+      const undefinedProjects = undefined;
+      const wrapperB = mount(
+        <UnconnectedAllProjects
+          projects={undefinedProjects}
+          getProjects={getProjectsSpy}
+        />
+      );
+      const wrapperC = mount(
+        <UnconnectedAllProjects getProjects={getProjectsSpy} />
+      );
+      const differentProjects = [
+        {
+          id: 4,
+          title: "Fold the laundry",
+        },
+        {
+          id: 5,
+          title: "Shut down all the garbage compactors",
+        },
+      ];
+      const wrapperD = mount(
+        <UnconnectedAllProjects
+          projects={differentProjects}
+          getProjects={getProjectsSpy}
+        />
+      );
+
+      expect(wrapperA.text()).to.include("No Projects");
+      expect(wrapperB.text()).to.include("No Projects");
+      expect(wrapperC.text()).to.include("No Projects");
+      expect(wrapperD.text()).to.not.include("No Projects");
+      // throw new Error('replace this error with your own test');
     });
 
     // In a later step, we'll create a thunk, and map that thunk to AllProjects
     // as getProjects. For right now, we just need to be sure the component
     // calls it after it mounts.
-    xit("calls this.props.getProjects after mount", async () => {
+    it("calls this.props.getProjects after mount", async () => {
       mount(
         <UnconnectedAllProjects
           projects={projects}
@@ -172,7 +210,7 @@ describe("Tier One: Projects", () => {
     // This test is expecting your component to dispatch a thunk after it mounts
     // Remember that getProjects prop from an earlier test? Now's a good time
     // for a mapDispatch.
-    xit("initializes projects from the server when the application loads the /projects route", async () => {
+    it("initializes projects from the server when the application loads the /projects route", async () => {
       const reduxStateBeforeMount = store.getState();
       expect(reduxStateBeforeMount.projects).to.deep.equal([]);
       mount(
@@ -190,7 +228,7 @@ describe("Tier One: Projects", () => {
 
     // This test is expecting your component to render the projects from the
     // Redux store. Now's a good time for a mapState.
-    xit("<AllProjects /> renders projects from the Redux store", async () => {
+    it("<AllProjects /> renders projects from the Redux store", async () => {
       const wrapper = mount(
         <Provider store={store}>
           <MemoryRouter initialEntries={["/projects"]}>
@@ -221,7 +259,7 @@ describe("Tier One: Projects", () => {
 
     // This test expects that you've set up a Route for AllProjects.
     // You should take a look at app/components/Routes.js
-    xit("renders <AllProjects /> at path /projects", () => {
+    it("renders <AllProjects /> at path /projects", () => {
       const wrapper = mount(
         <Provider store={store}>
           <MemoryRouter initialEntries={["/projects"]}>
@@ -233,8 +271,21 @@ describe("Tier One: Projects", () => {
       expect(wrapper.find(AllRobots)).to.have.length(0);
     });
 
-    xit('*** navbar has links to "/projects"', () => {
-      throw new Error("replace this error with your own test");
+    it('*** navbar has links to "/projects"', () => {
+      const wrapper = mount(
+        <Provider store={store}>
+          <MemoryRouter initialEntries={["/projects"]}>
+            <Routes />
+          </MemoryRouter>
+        </Provider>
+      );
+
+      expect(wrapper.containsMatchingElement(<a href="/">Home</a>)).to.equal(
+        true
+      );
+      expect(
+        wrapper.containsMatchingElement(<a href="/projects">Projects</a>)
+      ).to.equal(true);
     });
   });
 
@@ -391,7 +442,7 @@ describe("Tier One: Projects", () => {
     // command line.
     beforeEach(seed);
 
-    xit("populates the database with at least three projects", async () => {
+    it("populates the database with at least three projects", async () => {
       const seedProjects = await Project.findAll();
       expect(seedProjects).to.have.lengthOf.at.least(3);
     });
