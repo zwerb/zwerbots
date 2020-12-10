@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Navbar from "./Navbar";
-import AllRobots from './AllRobots';
+import AllRobots from "./AllRobots";
 
 const Routes = () => {
   return (
@@ -12,11 +12,34 @@ const Routes = () => {
         </nav>
         <main>
           <h1>
-            Welcome to StackBot Project Management: your robot employees are
-            awaiting assignments!
+           StackBot Project Management
           </h1>
-          <Route exact path='/' render={()=>(<div><p>This seems like a nice place to get started with some Routes!</p></div>)} />
-          <Route exact path='/robots' render={()=>(<div><AllRobots /></div>)} />
+          <Route
+            exact
+            path="/"
+            render={() => (
+              <div className="single-robot">
+                <div className="robot-bio-data">
+                  <div className="robot-avatar">
+                    <img className="avatar" src="images/robots/Robot_Avatars_50.png" />
+                  </div>
+                  <div className="robot-name">Hello!</div>
+                </div>
+                <div className="robot-details">
+                  <div className="robot-welcome">Welcome to my Robot JPFP!</div>
+                </div>
+              </div>
+            )}
+          />
+          <Route
+            exact
+            path="/robots"
+            render={() => (
+              <div>
+                <AllRobots />
+              </div>
+            )}
+          />
         </main>
       </div>
     </Router>
