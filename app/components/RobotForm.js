@@ -39,8 +39,8 @@ const RobotForm = (props) => {
   return (
     <div className="single-form">
       <form onChange={onChange} onSubmit={onSubmit}>
-        <div className="form-details">
-          <div className="form-header">{formDetails.title}</div>
+       <div onClick={()=>{props.toggleHidden()}} className="form-header">{formDetails.title}</div> 
+          <div className={formDetails.hidden?"form-details hidden":"form-details shown"}>
           {robotKeys
             .filter((keyElem) => keyElem != "id")
             .map((keyElem, index) => {

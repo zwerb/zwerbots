@@ -64,6 +64,7 @@ main {
   padding: 0;
   margin: 0;
   list-style: none;
+  align-items: center;
 }
 
 .single-item {
@@ -175,7 +176,7 @@ main {
   background: seashell;
   padding: 5px;
   width: 280px;
-  min-height: 180px;
+  min-height: 80px;
   border: 1px solid silver;
   margin-top: 10px;
 }
@@ -227,6 +228,17 @@ main {
   font-weight: 600;
 }
 
+.form-details.hidden{
+  display: none;
+    transition: opacity 1s ease-out;
+    opacity: 0;
+}
+
+.form-details.shown {
+  display: block;
+  animation: fade-in 1s;
+}
+
 .form-details input[type=text] {
   border: 2px solid rgb(9, 65, 44);
   border-radius: 4px;
@@ -275,7 +287,12 @@ main {
   align-items: center;
   margin: 1px;
   padding: 1px;
-  /* border-bottom: 1px solid grey */
+  text-align: center;
+  color: rgb(21, 12, 28)
+}
+
+.form-header:hover {
+  color: rgb(100, 59, 108)
 }
 
 .form-detail{

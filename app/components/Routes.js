@@ -5,7 +5,7 @@ import AllRobots from "./AllRobots";
 import AllProjects from "./AllProjects";
 import SingleRobot from "./SingleRobot";
 import SingleProject from "./SingleProject";
-import NotFound from "./NotFound";
+import { NotFound } from "./NotFound";
 import { SingleMessage } from "./SingleMessage";
 
 

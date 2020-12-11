@@ -4,7 +4,7 @@ import { fetchAddRobot, clearRobot } from "../redux/singleRobot";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
-export class CreateRobot extends Component {
+export class CreateProject extends Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -130,11 +130,11 @@ export class CreateRobot extends Component {
 //   };
 // };
 
-const mapDispatch = (dispatch) => {
-  return {
-    addRobot: (robot) => dispatch(fetchAddRobot(robot)),
-    clearRobot: () => dispatch(clearRobot()),
-  };
-};
+// const mapDispatch = (dispatch) => {
+//   return {
+//     addProject: (project) => dispatch(fetchAddProject(project)),
+//     clearProject: () => dispatch(clearProject()),
+//   };
+// };
 
-export default connect(null, mapDispatch)(CreateRobot);
+export default connect(null, mapDispatch)(CreateProject);
