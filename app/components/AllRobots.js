@@ -4,19 +4,45 @@ import { fetchRobots } from "../redux/robots";
 import SingleRobot from "./SingleRobot";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { RobotsList } from "./RobotsList";
+import CreateRobot from "./CreateRobot";
+import robotsSeed from "../../robots-seed";
 
 export class AllRobots extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+    this.updateLocalList = this.updateLocalList.bind(this);
+  }
+
   async componentDidMount() {
     await this.props.getRobots();
+    const { robots } = this.props.robots ? this.props : [];
+    this.setState({
+      robots: robots,
+    })
+  }
+
+  updateLocalList(robot) {
+    //...
+    console.log("tried to update list");
+    console.log("deez props", this.props);
+    console.log("deez state", this.state);
+    this.setState({
+      robots: [...this.state.robots,robot]
+    })
   }
 
   render() {
-    const { robots } = this.props || [];
+    const { robots } = this.state.robots ? this.state : [];
     // const { match } = this.props || {};
     return (
       <div className="robots-section">
         <h4>Robots</h4>
-        <RobotsList robots={robots || []} />
+
+        <div className="robots-content-container">
+          <RobotsList robots={robots ? robots : []} />
+          <CreateRobot updateLocalList={this.updateLocalList} />
+        </div>
       </div>
     );
   }

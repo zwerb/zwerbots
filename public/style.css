@@ -301,15 +301,62 @@ main {
   width: 100%
 }
 
+.form-details .success-box{
+  font-size: 0.9em;
+  margin: 5px;
+  padding: 5px;
+  background-color: #cbf4b7;
+  border: 2px solid rgb(20, 97, 57);
+  align-self: center;
+  width: 100%
+}
+
+.success-box a{
+  color: rgb(8, 52, 8);
+}
+
+.success-box a:hover{
+  color: rgb(50, 84, 20);
+}
+
 /* Robot Displays Styling */
+
+.robots-section{
+  display: flex;
+  flex-flow: column;
+}
+
+.robots-section h4{
+  text-align: center;
+}
+
+.robots-content-container{
+  display: flex;
+  flex-flow: row;
+  /* align-content: flex-start; */
+  justify-content: center;
+}
 
 .all-robots {
   display: flex;
-  flex-flow: column;
+  flex-flow: row wrap;
   justify-content: space-around;
   padding: 0;
-  margin: 0;
+  margin: 10px;
   list-style: none;
+  flex-basis: 2;
+  align-content: flex-start;
+  max-width: 50%;
+}
+
+.robot-form {
+  display: flex;
+  flex-flow: column;
+  padding: 0;
+  margin: 10px;
+  list-style: none;
+  flex-basis: 1;
+  align-content: flex-start;
 }
 
 .single-robot {
@@ -377,7 +424,6 @@ main {
 
 /* Projects Displays Styling */
 
-.robots-section h4,
 .projects-section h4 {
   text-align: center;
 }

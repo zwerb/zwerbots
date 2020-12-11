@@ -82,6 +82,7 @@ const RobotForm = (props) => {
             Submit
           </button>
           {formDetails.error&&formDetails.error.length>0?<div className='err-box'>{formDetails.error}</div>:''}
+          {formDetails.success&&formDetails.success.length>0?<div className='success-box'>{formDetails.success[0]}</div>:''}
         </div>
       </form>
     </div>

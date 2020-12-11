@@ -29,11 +29,12 @@ export const fetchAddRobot = (robot) => {
       const response = await axios.post(`/api/robots`, robot);
       const { data } = response;
       dispatch(addRobot(data));
+      return(data);
     } catch (err) {
       const errObj = Object.getOwnPropertyNames(err).reduce((errObj,prop)=>{errObj[prop]=err[prop];return errObj},{});
       console.log('errObj',errObj);
-      if(errObj.response.data.includes("Validation error") || errObj.response.data.includes("invalid input value")){
-        return (errObj.response.data)
+      if(errObj.response && errObj.response.data && errObj.response.status){
+        return (errObj.response)
       }
       // !REMOVE
       console.log(err);

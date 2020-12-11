@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import RobotForm from "./RobotForm";
 import { fetchAddRobot, clearRobot } from "../redux/singleRobot";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 export class CreateRobot extends Component {
   constructor(props) {
@@ -30,17 +31,17 @@ export class CreateRobot extends Component {
 
   async onSubmit(event) {
     this.setState({
-      formDetails: { ...this.state.formDetails, error: null },
+      formDetails: { ...this.state.formDetails, error: null, success: null },
     });
     try {
       event.preventDefault();
       console.log("Just submitted:", this.state.formState);
       // const res = await axios.post("/api/robots",this.state);
       const response = await this.props.addRobot(this.state.formState);
-      if (response) {
+      if (response.status && response.status > 201) {
         console.log("Need to put a user-indicator here", response);
         this.setState({
-          formDetails: { ...this.state.formDetails, error: response },
+          formDetails: { ...this.state.formDetails, error: response.data },
         });
       } else {
         const newState = Object.keys(this.state.formState).reduce(
@@ -50,7 +51,24 @@ export class CreateRobot extends Component {
           },
           {}
         );
-        this.setState({ formState: { ...newState } });
+
+        const newRobot = response;
+
+        this.setState({
+          formState: { ...newState },
+          formDetails: {
+            ...this.state.formDetails,
+            success: [
+              <span>
+                {`Successfully created Robot: `}
+                <Link to={`/robots/${newRobot.id}`}>{newRobot.name}</Link>
+              </span>,
+            ],
+          },
+        });
+        if (this.props.updateLocalList) {
+          this.props.updateLocalList(newRobot);
+        }
       }
     } catch (err) {
       console.error(err);
@@ -67,7 +85,7 @@ export class CreateRobot extends Component {
           },
         };
     return (
-      <div className="all-robots">
+      <div className="robot-form">
         {console.log("createrobot props:", this.props)}
         {console.log("createrobot state:", this.state)}
         <RobotForm

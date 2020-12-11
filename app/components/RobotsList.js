@@ -8,7 +8,7 @@ export const RobotsList = (props) => {
       <div className="all-robots">
         {console.log('props: ',props)}
         {robots && robots.length > 0 ? (
-          robots.map((robot) => <SingleRobot key={robot.id} robot={robot} />)
+          robots.sort((a,b)=>(Number(Date.parse(b.createdAt))-Number(Date.parse(a.createdAt)))).map((robot) => <SingleRobot key={robot.id} robot={robot} />)
         ) : (
           <p>No Robots</p>
         )}

@@ -7,7 +7,7 @@ import SingleRobot from "./SingleRobot";
 import SingleProject from "./SingleProject";
 import NotFound from "./NotFound";
 import { SingleMessage } from "./SingleMessage";
-import CreateRobot from "./CreateRobot";
+
 
 const Routes = () => {
 
@@ -113,7 +113,6 @@ const Routes = () => {
             />
             <Route component={NotFound} />
           </Switch>
-          <CreateRobot />
         </main>
       </div>
     </Router>
