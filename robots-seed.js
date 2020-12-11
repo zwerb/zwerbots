@@ -23,7 +23,7 @@ const names = [
 ];
 
 const maxImageUrls = 50;
-const imageUrlBase = "images/robots/Robot_Avatars_";
+const imageUrlBase = "/images/robots/Robot_Avatars_";
 
 function imageUrlGenerator(index=0){
   return index < maxImageUrls && index >= 0 ? imageUrlBase + (index + 1) + '.png' : imageUrlBase + (Math.floor(Math.random() * (maxImageUrls - 1)) + 1) + '.png'

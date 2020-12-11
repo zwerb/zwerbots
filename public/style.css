@@ -105,6 +105,16 @@ main {
   align-items: center;
 }
 
+.robot-name a{
+  text-decoration: none;
+  color: midnightblue;
+}
+
+.robot-name a:hover{
+  text-decoration: none;
+  color: indigo;
+}
+
 .robot-details {
   font-size: 0.9em;
   display: flex;
@@ -115,7 +125,7 @@ main {
 
 /* Projects Displays Styling */
 
-.all-projects h4, .all-robots h4{
+.robots-section h4, .projects-section h4{
   text-align: center;
 }
 
@@ -196,6 +206,16 @@ main {
 
 .project-title {
   flex-basis: 4;
+}
+
+.project-title  a{
+  text-decoration: none;
+  color: #042204;
+}
+
+.project-title  a:hover{
+  text-decoration: none;
+  color: #0b370b;
 }
 
 

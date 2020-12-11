@@ -1,16 +1,7 @@
 const router = require("express").Router();
-
-// !REPLACE - Below Development Comment
 const { Robot } = require("../db");
 
-// !REMOVE - Development Placeholder  
-// const robots = [
-//     { id: 1, name: 'R2-D2', imageUrl: '/images/r2d2.png' },
-//     { id: 2, name: 'WALL-E', imageUrl: '/images/walle.jpeg' },
-//   ];
-
-
-// GET /api/albums
+// GET /api/robots
 router.get("/", async (req, res, next) => {
   try {
     // !REPLACE - Below Development Comment
@@ -21,6 +12,13 @@ router.get("/", async (req, res, next) => {
   }
 });
 
+router.get("/:robotId", async (req, res, next) => {
+  try {
+    const robot = await Robot.findByPk(req.params.robotId);
+    res.json(robot);
+  } catch (error) {
+    next(error);
+  }
+});
+
 module.exports = router;
-
-

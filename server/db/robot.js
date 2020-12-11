@@ -23,9 +23,9 @@ const Robot = db.define("robot", {
     allowNull: false,
     validate: {
       notEmpty: true,
-      is: /^[images/].+[[png]|[jpg]|[jpeg]]$/g,
+      is: /^[/images/].+[[png]|[jpg]|[jpeg]]$/g,
     },
-    defaultValue: "images/robots/default.png",
+    defaultValue: "/images/robots/default.png",
   },
   fuelType: {
     type: Sequelize.ENUM({
