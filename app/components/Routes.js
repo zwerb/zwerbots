@@ -7,7 +7,7 @@ import SingleRobot from "./SingleRobot";
 import SingleProject from "./SingleProject";
 import NotFound from "./NotFound";
 import { SingleMessage } from "./SingleMessage";
-import RobotForm from "./RobotForm";
+import CreateRobot from "./CreateRobot";
 
 const Routes = () => {
 
@@ -113,7 +113,7 @@ const Routes = () => {
             />
             <Route component={NotFound} />
           </Switch>
-          <RobotForm onChange={()=>{console.log('onChange')}} onSubmit={()=>{console.log('onSubmit')}} formDetails={formDetails} />
+          <CreateRobot />
         </main>
       </div>
     </Router>

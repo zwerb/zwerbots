@@ -228,11 +228,15 @@ main {
 }
 
 .form-details input[type=text] {
-  border: 2px solid rgb(82, 18, 18);
+  border: 2px solid rgb(9, 65, 44);
   border-radius: 4px;
   width: 100%;
   margin:2px;
   padding: 2px;
+}
+
+.form-details input[type=text].invalid {
+  border: 2px solid rgb(92, 10, 10);
 }
 
 .form-details .submit-button {
@@ -260,6 +264,11 @@ main {
   text-decoration: none;
 }
 
+.form-details .submit-button.disabled{
+  background-color: #ccc9cd;
+  color: #6a6869;
+}
+
 .form-header {
   font-size: 1.2em;
   font-weight: bold;
@@ -273,8 +282,22 @@ main {
   font-size: 0.9em;
   margin: 5px;
   padding: 5px;
-  background-color: #e1cede;
+  background-color: #ace3d6;
   align-self: left;
+  width: 100%
+}
+
+.form-detail.invalid{
+  background-color: rgb(232, 192, 192);
+}
+
+.form-details .err-box{
+  font-size: 0.9em;
+  margin: 5px;
+  padding: 5px;
+  background-color: #e89684;
+  border: 2px solid rgb(171, 18, 18);
+  align-self: center;
   width: 100%
 }
 

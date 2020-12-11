@@ -28,4 +28,13 @@ router.get("/:robotId", async (req, res, next) => {
   }
 });
 
+router.post("/", async (req, res, next) => {
+  try {
+    const robot = await Robot.create(req.body);
+    res.status(201).json(robot);
+  } catch (error) {
+    next(error);
+  }
+});
+
 module.exports = router;
