@@ -29,41 +29,55 @@ export class SingleRobot extends React.Component {
     const { robot } = this.props;
     return (
       <div>
-      <div className="single-robot">
-        {robot && robot.id ? (
+        {console.log("Single robot props", this.props)}
+        <div className="single-robot">
+          {robot && robot.id ? (
+            <div>
+              <div className="robot-bio-data">
+                <div className="robot-avatar">
+                  {" "}
+                  <img className="avatar" src={robot.imageUrl} />
+                </div>
+                <div className="robot-name">
+                  <Link to={`/robots/${robot.id}`}>{robot.name}</Link>{" "}
+                </div>
+              </div>
+              <div className="robot-details">
+                <div className="robot-fuelLevel">
+                  Fuel Level {robot.fuelLevel}
+                </div>
+                <div className="robot-fuelType">
+                  Fuel Type: {robot.fuelType}
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div>
+              <h4>Robot Not Found</h4>
+            </div>
+          )}
+        </div>
+        {this.props.match && this.props.match.params ? (
           <div>
-            <div className="robot-bio-data">
-              <div className="robot-avatar">
-                {" "}
-                <img className="avatar" src={robot.imageUrl} />
-              </div>
-              <div className="robot-name">
-                <Link to={`/robots/${robot.id}`}>{robot.name}</Link>{" "}
-              </div>
+            <div style={{ textAlign: "center" }}>
+              <h4>
+                <Link to={`/robots`}>Back to Robots</Link>
+              </h4>
             </div>
-            <div className="robot-details">
-              <div className="robot-fuelLevel">
-                Fuel Level {robot.fuelLevel}
-              </div>
-              <div className="robot-fuelType">Fuel Type: {robot.fuelType}</div>
-            </div>
-           
+            {robot.projects
+              ? <div style={{ textAlign: "left" }}>
+              <h4>
+                Projects
+              </h4>
+          
+              {robot.projects.map((project) => (
+                  <p key={project.id}><Link to={`/projects/${project.id}`}>{project.title}</Link></p>
+                ))} </div>
+              : ""}
           </div>
         ) : (
-          <div>
-            <h4>Robot Not Found</h4>
-          </div>
+          ""
         )}
-        </div>
-         {this.props.match && this.props.match.params ? (
-           <div style={{'text-align': 'center'}}>
-              <h4>
-                <Link to={`/robots`}>Back</Link>
-              </h4>
-              </div>
-            ) : (
-              ""
-            )}
       </div>
     );
   }

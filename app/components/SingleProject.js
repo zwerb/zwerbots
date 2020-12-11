@@ -1,3 +1,4 @@
+/* eslint-disable complexity */
 import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
@@ -73,10 +74,24 @@ export class SingleProject extends React.Component {
           )}
         </div>
         {this.props.match && this.props.match.params ? (
-          <div style={{ "text-align": "center" }}>
-            <h4>
-              <Link to={`/projects`}>Back</Link>
-            </h4>
+          <div>
+            <div style={{ textAlign: "center" }}>
+              <h4>
+                <Link to={`/projects`}>Back to Projects</Link>
+              </h4>
+            </div>
+            {project.robots ? (
+              <div style={{ textAlign: "left" }}>
+                <h4>Robots</h4>
+                {project.robots.map((robot) => (
+                  <p key={robot.id}>
+                    <Link to={`/robots/${robot.id}`}>{robot.name}</Link>
+                  </p>
+                ))}{" "}
+              </div>
+            ) : (
+              ""
+            )}
           </div>
         ) : (
           ""
