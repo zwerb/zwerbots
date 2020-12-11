@@ -11,18 +11,6 @@ export const addRobot = (robot) => {
   };
 };
 
-// if(response.status == "ok"){
-//   // check if the internal status is ok
-//   // then pass on the data
-//   dispatch(loadTodoSuccess(response.data));
-//   }else{
-//   // if internally there are errors
-//   // pass on the error, in a correct implementation
-//   // such errors should throw an HTTP 4xx or 5xx error
-//   // so that it directs straight to the catch block
-//   dispatch(loadTodoError(response.error));
-//   } 
-
 export const fetchAddRobot = (robot) => {
   return async (dispatch) => {
     try {

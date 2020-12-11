@@ -6,10 +6,10 @@ const RobotForm = (props) => {
   const { formDetails } = props;
   // const { state } = props.state ? props : {};
 
-  const { robot } = props.robot
+  const { formObject } = props.formObject
     ? props
     : {
-        robot: {
+      formObject: {
           id: -1,
           name: "Slimothy",
           imageUrl: "/images/robots.default.png",
@@ -17,13 +17,14 @@ const RobotForm = (props) => {
           fuelLevel: 88.5,
         },
       };
-  const { state } = props.state ? props : {};
-  const robotKeys = Object.keys(robot);
 
-  const formValidInputs = robotKeys
+  const { state } = props.state ? props : {};
+  const formObjectKeys = Object.keys(formObject);
+
+  const formValidInputs = formObjectKeys
     .filter((keyElem) => keyElem != "id")
     .filter((keyElem) => state[keyElem] && state[keyElem].length > 0);
-  const formInvalidInputs = robotKeys
+  const formInvalidInputs = formObjectKeys
     .filter((keyElem) => keyElem != "id")
     .filter((keyElem) => !state[keyElem] || state[keyElem].length < 1);
 
@@ -41,7 +42,7 @@ const RobotForm = (props) => {
       <form onChange={onChange} onSubmit={onSubmit}>
        <div onClick={()=>{props.toggleHidden()}} className="form-header">{formDetails.title}</div> 
           <div className={formDetails.hidden?"form-details hidden":"form-details shown"}>
-          {robotKeys
+          {formObjectKeys
             .filter((keyElem) => keyElem != "id")
             .map((keyElem, index) => {
               const isValid = !formInvalidInputs.includes(keyElem)
@@ -58,7 +59,7 @@ const RobotForm = (props) => {
                     {keyElem[0].toUpperCase() + keyElem.slice(1)}
                   </label>
                   <input
-                    placeholder={robot[keyElem]}
+                    placeholder={formObject[keyElem]}
                     value={state[keyElem]}
                     onChange={onChange}
                     type="text"

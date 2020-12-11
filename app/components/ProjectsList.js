@@ -6,7 +6,6 @@ export const ProjectsList = (props) => {
 
   return (
     <div className="all-projects">
-      <h4>Projects</h4>
       {console.log('projects list props',props)}
       {projects && projects.length > 0 ? (
         projects.map((project) => {

@@ -52,6 +52,7 @@ main {
 
   background: linear-gradient(#ffffff, #c0c0c0);
   padding: 10px;
+  
 }
 
 
@@ -445,12 +446,19 @@ main {
   text-align: center;
 }
 
+.projects-content-container{
+  display: flex;
+  flex-flow: row;
+  /* align-content: flex-start; */
+  justify-content: center;
+}
+
 .all-projects {
   display: flex;
   flex-flow: column;
   justify-content: space-around;
   padding: 0;
-  margin: 0;
+  margin-top: 10px;
   list-style: none;
 }
 

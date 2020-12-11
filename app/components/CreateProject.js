@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import RobotForm from "./RobotForm";
-import { fetchAddRobot, clearRobot } from "../redux/singleRobot";
+import { fetchAddProject, clearProject } from "../redux/singleProject";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
@@ -16,7 +16,7 @@ export class CreateProject extends Component {
   componentDidMount(event) {
     this.setState({
       formDetails: {
-        title: "Add a Robot",
+        title: "Add a Project",
         hidden: true,
       },
     });
@@ -48,7 +48,7 @@ export class CreateProject extends Component {
       event.preventDefault();
       console.log("Just submitted:", this.state.formState);
       // const res = await axios.post("/api/robots",this.state);
-      const response = await this.props.addRobot(this.state.formState);
+      const response = await this.props.addProject(this.state.formState);
       if (response.status && response.status > 201) {
         console.log("Need to put a user-indicator here", response);
         this.setState({
@@ -63,7 +63,7 @@ export class CreateProject extends Component {
           {}
         );
 
-        const newRobot = response;
+        const newProject = response;
 
         this.setState({
           formState: { ...newState },
@@ -71,14 +71,14 @@ export class CreateProject extends Component {
             ...this.state.formDetails,
             success: [
               <span>
-                {`Successfully created Robot: `}
-                <Link to={`/robots/${newRobot.id}`}>{newRobot.name}</Link>
+                {`Successfully created Project: `}
+                <Link to={`/projects/${newProject.id}`}>{newProject.title}</Link>
               </span>,
             ],
           },
         });
         if (this.props.updateLocalList) {
-          this.props.updateLocalList(newRobot);
+          this.props.updateLocalList(newProject);
         }
       }
     } catch (err) {
@@ -87,18 +87,25 @@ export class CreateProject extends Component {
   }
 
   render() {
-    const { robot } = this.props.robot ? this.props : {};
+
+    const { project } = this.props.project ? this.props : {
+      project: {
+        id: -1,
+        title: "Fetch Images",
+        description: "Not a hard task."
+      },
+    };
     const { formDetails } = this.state.formDetails
       ? this.state
       : {
           formDetails: {
-            title: "Add a Robot",
+            title: "Add a Project",
           },
         };
     return (
       <div className="robot-form">
-        {console.log("createrobot props:", this.props)}
-        {console.log("createrobot state:", this.state)}
+        {console.log("createrproj props:", this.props)}
+        {console.log("createrproj state:", this.state)}
         <RobotForm
           onChange={
             this.onChange
@@ -117,6 +124,7 @@ export class CreateProject extends Component {
           toggleHidden={this.toggleHidden}
           formDetails={formDetails}
           state={this.state.formState ? this.state.formState : {}}
+          formObject={project}
         />
       </div>
     );
@@ -130,11 +138,11 @@ export class CreateProject extends Component {
 //   };
 // };
 
-// const mapDispatch = (dispatch) => {
-//   return {
-//     addProject: (project) => dispatch(fetchAddProject(project)),
-//     clearProject: () => dispatch(clearProject()),
-//   };
-// };
+const mapDispatch = (dispatch) => {
+  return {
+    addProject: (project) => dispatch(fetchAddProject(project)),
+    clearProject: () => dispatch(clearProject()),
+  };
+};
 
 export default connect(null, mapDispatch)(CreateProject);

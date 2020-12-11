@@ -87,7 +87,15 @@ export class CreateRobot extends Component {
   }
 
   render() {
-    const { robot } = this.props.robot ? this.props : {};
+    const { robot } = this.props.robot ? this.props : {
+      robot: {
+        id: -1,
+        name: "Slimothy",
+        imageUrl: "/images/robots.default.png",
+        fuelType: "gas",
+        fuelLevel: 88.5,
+      },
+    };
     const { formDetails } = this.state.formDetails
       ? this.state
       : {
@@ -117,6 +125,7 @@ export class CreateRobot extends Component {
           toggleHidden={this.toggleHidden}
           formDetails={formDetails}
           state={this.state.formState ? this.state.formState : {}}
+          formObject={robot}
         />
       </div>
     );
