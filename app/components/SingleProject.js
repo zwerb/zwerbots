@@ -80,7 +80,7 @@ export class SingleProject extends React.Component {
                 <Link to={`/projects`}>Back to Projects</Link>
               </h4>
             </div>
-            {project.robots ? (
+            {project.robots && project.robots.length > 0 ? (
               <div style={{ textAlign: "left" }}>
                 <h4>Robots</h4>
                 {project.robots.map((robot) => (
@@ -90,7 +90,9 @@ export class SingleProject extends React.Component {
                 ))}{" "}
               </div>
             ) : (
-              ""
+              <div style={{ textAlign: "center" }}>
+                <h4>No Robots Assigned!</h4>
+              </div>
             )}
           </div>
         ) : (

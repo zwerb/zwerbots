@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import Navbar from "./Navbar";
 import AllRobots from "./AllRobots";
 import AllProjects from "./AllProjects";
@@ -37,7 +37,18 @@ const Routes = () => {
                   <div className="robot-name">Hello!</div>
                 </div>
                 <div className="robot-details">
-                  <div className="robot-welcome">Welcome to my Robot JPFP!</div>
+                  <div className="robot-welcome">
+                    <p>Welcome to my Robot JPFP!</p>
+                    <p style={{ textAlign: "center" }}>
+                      <span>
+                        <Link to="/robots">Robots</Link>
+                      </span>{" "}
+                      |{" "}
+                      <span>
+                        <Link to="/projects">Projects</Link>
+                      </span>
+                    </p>
+                  </div>
                 </div>
               </div>
             )}

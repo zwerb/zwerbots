@@ -105,12 +105,12 @@ main {
   align-items: center;
 }
 
-.robot-name a{
+.robot-name a {
   text-decoration: none;
   color: midnightblue;
 }
 
-.robot-name a:hover{
+.robot-name a:hover {
   text-decoration: none;
   color: indigo;
 }
@@ -123,9 +123,14 @@ main {
   align-items: center;
 }
 
+.robot-details a {
+  text-decoration: none;
+}
+
 /* Projects Displays Styling */
 
-.robots-section h4, .projects-section h4{
+.robots-section h4,
+.projects-section h4 {
   text-align: center;
 }
 
@@ -193,11 +198,11 @@ main {
 } */
 
 .completed {
-  color: forestgreen
+  color: forestgreen;
 }
 
 .in-progress {
-  color: maroon
+  color: maroon;
 }
 
 .project-id {
@@ -208,16 +213,15 @@ main {
   flex-basis: 4;
 }
 
-.project-title  a{
+.project-title a {
   text-decoration: none;
   color: #042204;
 }
 
-.project-title  a:hover{
+.project-title a:hover {
   text-decoration: none;
   color: #0b370b;
 }
-
 
 .project-details {
   font-size: 0.9em;
@@ -238,18 +242,17 @@ main {
   justify-content: center;
 }
 
-.imminent{
+.imminent {
   background-color: lightpink;
 }
 
-.today{
+.today {
   background-color: lightsalmon;
 }
 
-.this-week{
+.this-week {
   background-color: lightyellow;
 }
-
 
 .project-description {
   margin: 2px;

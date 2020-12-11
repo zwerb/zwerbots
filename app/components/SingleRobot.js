@@ -64,16 +64,20 @@ export class SingleRobot extends React.Component {
                 <Link to={`/robots`}>Back to Robots</Link>
               </h4>
             </div>
-            {robot.projects
-              ? <div style={{ textAlign: "left" }}>
-              <h4>
-                Projects
-              </h4>
-          
-              {robot.projects.map((project) => (
-                  <p key={project.id}><Link to={`/projects/${project.id}`}>{project.title}</Link></p>
-                ))} </div>
-              : ""}
+            {robot.projects && robot.projects.length > 0 ? (
+              <div style={{ textAlign: "left" }}>
+                <h4>Projects</h4>
+                {robot.projects.map((project) => (
+                  <p key={project.id}>
+                    <Link to={`/projects/${project.id}`}>{project.title}</Link>
+                  </p>
+                ))}{" "}
+              </div>
+            ) : (
+              <div style={{ textAlign: "center" }}>
+                <h4>No Projects Assigned!</h4>
+              </div>
+            )}
           </div>
         ) : (
           ""
