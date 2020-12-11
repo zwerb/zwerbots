@@ -1,7 +1,10 @@
+/* eslint-disable complexity */
 import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { fetchRobot, clearRobot } from "../redux/singleRobot";
+import { SingleMessage } from "./SingleMessage";
+
 
 export class SingleRobot extends React.Component {
   async componentDidMount() {
@@ -27,6 +30,21 @@ export class SingleRobot extends React.Component {
 
   render() {
     const { robot } = this.props;
+    const projects =
+      robot && robot.projects
+        ? robot.projects.map((project) => (
+              <Link key={project.id} to={`/projects/${project.id}`}>{project.id}: {project.title}</Link>
+          ))
+        : [];
+    const message =
+      robot && projects && projects.length > 0
+        ? {
+            title: "Projects",
+            header: `Assigned to ${robot.name}:`,
+            content: projects,
+          }
+        : { title: "Projects", header: `None Found for: ${robot.name}` };
+
     return (
       <div>
         {console.log("Single robot props", this.props)}
@@ -57,6 +75,12 @@ export class SingleRobot extends React.Component {
             </div>
           )}
         </div>
+
+        {this.props.match && this.props.match.params ? (
+          <SingleMessage message={message} />
+        ) : (
+          ""
+        )}
         {this.props.match && this.props.match.params ? (
           <div>
             <div style={{ textAlign: "center" }}>
@@ -64,20 +88,6 @@ export class SingleRobot extends React.Component {
                 <Link to={`/robots`}>Back to Robots</Link>
               </h4>
             </div>
-            {robot.projects && robot.projects.length > 0 ? (
-              <div style={{ textAlign: "left" }}>
-                <h4>Projects</h4>
-                {robot.projects.map((project) => (
-                  <p key={project.id}>
-                    <Link to={`/projects/${project.id}`}>{project.title}</Link>
-                  </p>
-                ))}{" "}
-              </div>
-            ) : (
-              <div style={{ textAlign: "center" }}>
-                <h4>No Projects Assigned!</h4>
-              </div>
-            )}
           </div>
         ) : (
           ""

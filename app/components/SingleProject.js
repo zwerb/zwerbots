@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { fetchProject, clearProject } from "../redux/singleProject";
 import moment from "moment";
+import { SingleMessage } from "./SingleMessage";
 
 export class SingleProject extends React.Component {
   async componentDidMount() {
@@ -28,7 +29,29 @@ export class SingleProject extends React.Component {
   }
 
   render() {
+    console.log('single project props',this.props?this.props:"")
     const { project } = this.props;
+
+    const robots =
+      project && project.robots
+        ? project.robots.map((robot) => (
+            <Link key={robot.id} to={`/robots/${robot.id}`}>
+              {robot.id}: {robot.name}
+            </Link>
+          ))
+        : [];
+    const message =
+      project && robots && robots.length > 0
+        ? {
+            title: "Robots",
+            header: `Assigned to Project # ${project.id}:`,
+            content: robots,
+          }
+        : {
+            title: "Robots",
+            header: `None Assigned to Project #: ${project.id}`,
+          };
+
     return (
       <div>
         <div className="single-project">
@@ -74,26 +97,17 @@ export class SingleProject extends React.Component {
           )}
         </div>
         {this.props.match && this.props.match.params ? (
+          <SingleMessage message={message} />
+        ) : (
+          ""
+        )}
+        {this.props.match && this.props.match.params ? (
           <div>
             <div style={{ textAlign: "center" }}>
               <h4>
                 <Link to={`/projects`}>Back to Projects</Link>
               </h4>
             </div>
-            {project.robots && project.robots.length > 0 ? (
-              <div style={{ textAlign: "left" }}>
-                <h4>Robots</h4>
-                {project.robots.map((robot) => (
-                  <p key={robot.id}>
-                    <Link to={`/robots/${robot.id}`}>{robot.name}</Link>
-                  </p>
-                ))}{" "}
-              </div>
-            ) : (
-              <div style={{ textAlign: "center" }}>
-                <h4>No Robots Assigned!</h4>
-              </div>
-            )}
           </div>
         ) : (
           ""

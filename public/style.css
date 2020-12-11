@@ -54,9 +54,228 @@ main {
   padding: 10px;
 }
 
-.avatar {
+
+/* Message Displays Styling */
+
+.all-items {
+  display: flex;
+  flex-flow: column;
+  justify-content: space-around;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.single-item {
+  display: flex;
+  flex-flow: column;
+  justify-content: space-around;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+
+  background: seashell;
+  padding: 5px;
+  width: 280px;
+  min-height: 180px;
+  border: 1px solid silver;
+  margin-top: 10px;
+}
+
+.item-meta-data {
+  background: papayawhip;
+  padding: 2px;
+  border: 1px solid silver;
+  margin: 5px;
+  padding: 5px;
+  width: auto;
+  line-height: 35px;
+  color: darkslategrey;
+  font-weight: bold;
+  font-size: 2em;
+  text-align: center;
+
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.item-title a {
+  text-decoration: none;
+  color: midnightblue;
+}
+
+.item-title a:hover {
+  text-decoration: none;
+  color: indigo;
+}
+
+.item-image {
   width: 50px;
   height: 50px;
+}
+
+.item-details {
+  font-size: 0.9em;
+  display: flex;
+  flex-flow: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.item-details a {
+  text-decoration: none;
+  color: #04202e;
+  font-weight: 700;
+}
+
+.item-details a:hover {
+  text-decoration: none;
+  color: #1b5674;
+}
+
+.item-header {
+  font-size: 1.2em;
+  font-weight: bold;
+  align-items: center;
+  margin: 1px;
+  padding: 1px;
+  /* border-bottom: 1px solid grey */
+}
+
+.item-detail{
+  font-size: 0.9em;
+  margin: 5px;
+  padding: 5px;
+  background-color: #d5d4e6;
+  align-self: left;
+  width: 100%
+}
+
+/* Form Display Styling */
+
+.all-forms {
+  display: flex;
+  flex-flow: column;
+  justify-content: space-around;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.single-form {
+  display: flex;
+  flex-flow: column;
+  justify-content: space-around;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+
+  background: seashell;
+  padding: 5px;
+  width: 280px;
+  min-height: 180px;
+  border: 1px solid silver;
+  margin-top: 10px;
+}
+
+.form-meta-data {
+  background: papayawhip;
+  padding: 2px;
+  border: 1px solid silver;
+  margin: 5px;
+  padding: 5px;
+  width: auto;
+  line-height: 35px;
+  color: darkslategrey;
+  font-weight: bold;
+  font-size: 2em;
+  text-align: center;
+
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.form-title {
+  font-size: 2em;
+}
+
+.form-title a {
+  text-decoration: none;
+  color: midnightblue;
+}
+
+.form-title a:hover {
+  text-decoration: none;
+  color: indigo;
+}
+
+.form-image {
+  width: 50px;
+  height: 50px;
+}
+
+.form-details {
+  font-size: 0.9em;
+  display: flex;
+  flex-flow: column;
+  justify-content: space-around;
+  align-items: center;
+  font-weight: 600;
+}
+
+.form-details input[type=text] {
+  border: 2px solid rgb(82, 18, 18);
+  border-radius: 4px;
+  width: 100%;
+  margin:2px;
+  padding: 2px;
+}
+
+.form-details .submit-button {
+  background-color: #6d2d72;
+  border: none;
+  color: white;
+  padding: 5px 9px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 1.1em;
+  border-radius: 2px;
+}
+
+.form-details .submit-button {
+  transition-duration: 0.4s;
+}
+
+.form-details .submit-button:hover {
+  background-color: #98519d;
+  color: #d8ccd3;
+}
+
+.form-details a {
+  text-decoration: none;
+}
+
+.form-header {
+  font-size: 1.2em;
+  font-weight: bold;
+  align-items: center;
+  margin: 1px;
+  padding: 1px;
+  /* border-bottom: 1px solid grey */
+}
+
+.form-detail{
+  font-size: 0.9em;
+  margin: 5px;
+  padding: 5px;
+  background-color: #e1cede;
+  align-self: left;
+  width: 100%
 }
 
 /* Robot Displays Styling */
@@ -81,7 +300,7 @@ main {
   background: seashell;
   padding: 5px;
   width: 280px;
-  height: 180px;
+  min-height: 180px;
   border: 1px solid silver;
   margin-top: 10px;
 }
@@ -113,6 +332,12 @@ main {
 .robot-name a:hover {
   text-decoration: none;
   color: indigo;
+}
+
+
+.avatar {
+  width: 50px;
+  height: 50px;
 }
 
 .robot-details {
@@ -154,7 +379,7 @@ main {
   background: lavenderblush;
   padding: 5px;
   width: 320px;
-  height: 180px;
+  min-height: 180px;
   border: 1px solid silver;
   margin-top: 10px;
 }

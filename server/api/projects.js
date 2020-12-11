@@ -15,7 +15,7 @@ router.get("/", async (req, res, next) => {
 
 router.get("/:projectId", async (req, res, next) => {
   try {
-    const project = await Project.findAll({
+    const projectResponse = await Project.findAll({
       where: {
         id: req.params.projectId,
       },
@@ -23,7 +23,39 @@ router.get("/:projectId", async (req, res, next) => {
         model: Robot,
       },
     });
-    res.json(project[0]);
+
+// !REMOVE
+// router.get("/:projectId", async (req, res, next) => {
+//   try {
+//     let project = await Project.findAll({
+//       where: {
+//         id: req.params.projectId,
+//       },
+//       include: {
+//         model: Robot,
+//       },
+//     });
+
+//     const additional_robots_response = await Robot.findAll({
+//       include: {
+//         model: Project,
+//         where: {
+//           id: req.params.projectId,
+//         },
+//       },
+//     });
+
+//     const additional_robots = additional_robots_response.map((robot) => {
+//       const { id, name, imageUrl } = robot;
+//       return {id, name, imageUrl };
+//     });
+
+//     let finalProject = project[0];
+//     finalProject.assignees = additional_robots;
+
+const project = projectResponse[0]
+
+    res.json(project);
   } catch (error) {
     next(error);
   }
