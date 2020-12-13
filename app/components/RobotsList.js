@@ -1,5 +1,6 @@
 import React from "react";
 import { SingleRobot } from "./SingleRobot";
+import { SingleMessage } from "./SingleMessage";
 
 export const RobotsList = (props) => {
   const { robots } = props.robots ? props : [];
@@ -9,11 +10,7 @@ export const RobotsList = (props) => {
     <div className="all-robots">
       {console.log("props: ", props)}
       {!ranOnce ? (
-        <p>
-          {" "}
-          <img src="images/preloading.gif" />
-          <br /> Loading Robots...
-        </p>
+          <SingleMessage message={{title:"Loading...",imageUrl:"images/preloading.gif",header:"Fetching robots."}} />
       ) : robots && robots.length > 0 ? (
         robots
           .sort(

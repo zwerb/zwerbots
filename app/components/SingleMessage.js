@@ -3,8 +3,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 export const SingleMessage = (props) => {
-  const { message } = props || {};
-  const { match, history } = props || [];
+  const { message } = props.message ? props : {};
+  const { match, history } = props;
   console.log("Single message props:", props);
 
   return (

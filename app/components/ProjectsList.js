@@ -1,5 +1,6 @@
 import React from "react";
 import { SingleProject } from "./SingleProject";
+import { SingleMessage } from './SingleMessage'; 
 
 export const ProjectsList = (props) => {
   const { projects } = props.projects ? props : [];
@@ -9,11 +10,7 @@ export const ProjectsList = (props) => {
     <div className="all-projects">
       {console.log("projects list props", props)}
       {!ranOnce ? (
-        <p>
-          {" "}
-          <img src="images/preloading.gif" />
-          <br /> Loading Projects...
-        </p>
+        <SingleMessage message={{title:"Loading...",imageUrl:"images/preloading.gif",header:"Fetching projects."}} />
       ) : projects && projects.length > 0 ? (
         projects.map((project) => {
           return <SingleProject key={project.id} project={project} />;

@@ -4,9 +4,14 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { fetchRobot, clearRobot } from "../redux/singleRobot";
 import { SingleMessage } from "./SingleMessage";
-
+import { Robot } from './Robot'
 
 export class SingleRobot extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { ranOnce: false };
+  }
+
   async componentDidMount() {
     const { robot } = this.props;
     if (
@@ -20,6 +25,8 @@ export class SingleRobot extends React.Component {
         console.error(err);
       }
     }
+
+    this.setState({ ...this.state, ranOnce: true });
   }
 
   componentWillUnmount() {
@@ -33,7 +40,9 @@ export class SingleRobot extends React.Component {
     const projects =
       robot && robot.projects
         ? robot.projects.map((project) => (
-              <Link key={project.id} to={`/projects/${project.id}`}>{project.id}: {project.title}</Link>
+            <Link key={project.id} to={`/projects/${project.id}`}>
+              {project.id}: {project.title}
+            </Link>
           ))
         : [];
     const message =
@@ -45,37 +54,10 @@ export class SingleRobot extends React.Component {
           }
         : { title: "Projects", header: `None Found for: ${robot.name}` };
 
+    const { ranOnce } = this.state;
     return (
       <div>
-        {console.log("Single robot props", this.props)}
-        <div className="single-robot">
-          {robot && robot.id ? (
-            <div>
-              <div className="robot-bio-data">
-                <div className="robot-avatar">
-                  {" "}
-                  <img className="avatar" src={robot.imageUrl} />
-                </div>
-                <div className="robot-name">
-                  <Link to={`/robots/${robot.id}`}>{robot.name}</Link>{" "}
-                </div>
-              </div>
-              <div className="robot-details">
-                <div className="robot-fuelLevel">
-                  Fuel Level {robot.fuelLevel}
-                </div>
-                <div className="robot-fuelType">
-                  Fuel Type: {robot.fuelType}
-                </div>
-              </div>
-            </div>
-          ) : (
-            <div>
-              <h4>Robot Not Found</h4>
-            </div>
-          )}
-        </div>
-
+        <Robot robot={robot} ranOnce={ranOnce} />
         {this.props.match && this.props.match.params ? (
           <SingleMessage message={message} />
         ) : (
