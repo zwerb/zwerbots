@@ -13,7 +13,7 @@ const usersTimeZone = "America/New_York";
 export class AllProjects extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = { ranOnce: false };
     this.updateLocalList = this.updateLocalList.bind(this);
   }
 
@@ -22,6 +22,7 @@ export class AllProjects extends React.Component {
     const { projects } = this.props.projects ? this.props : [];
     this.setState({
       projects: projects,
+      ranOnce: true
     });
   }
 
@@ -43,7 +44,7 @@ export class AllProjects extends React.Component {
       <div className="projects-section">
               <h4>Projects</h4>
         <div className="projects-content-container">
-          <ProjectsList projects={projects} />
+          <ProjectsList projects={projects} ranOnce={this.state.ranOnce}/>
           <CreateProject updateLocalList={this.updateLocalList} />
         </div>
       </div>

@@ -11,7 +11,8 @@ export const RobotsList = (props) => {
       {!ranOnce ? (
         <p>
           {" "}
-          <img src="images/preloading.gif" /> Loading...
+          <img src="images/preloading.gif" />
+          <br /> Loading Robots...
         </p>
       ) : robots && robots.length > 0 ? (
         robots
@@ -21,7 +22,7 @@ export const RobotsList = (props) => {
           )
           .map((robot) => <SingleRobot key={robot.id} robot={robot} />)
       ) : (
-        <p>No Robots</p>
+        <p>No Robots!</p>
       )}
     </div>
   );

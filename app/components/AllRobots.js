@@ -19,7 +19,7 @@ export class AllRobots extends React.Component {
     const { robots } = this.props.robots ? this.props : [];
     this.setState({
       robots: robots,
-      ranOnce: !this.state.ranOnce,
+      ranOnce: true
     });
   }
 
