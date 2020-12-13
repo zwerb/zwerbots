@@ -3,7 +3,6 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { fetchProject, clearProject } from "../redux/singleProject";
-import moment from "moment";
 import { SingleMessage } from "./SingleMessage";
 import { Project } from "./Project";
 
@@ -36,7 +35,6 @@ export class SingleProject extends React.Component {
   }
 
   render() {
-    console.log("single project props", this.props ? this.props : "");
     const { project } = this.props;
 
     const robots =
@@ -53,10 +51,12 @@ export class SingleProject extends React.Component {
             title: "Robots",
             header: `Assigned to Project # ${project.id}:`,
             content: robots,
+            imageUrl: "/images/graphics/robots.png",
           }
         : {
             title: "Robots",
             header: `None Assigned to Project #: ${project.id}`,
+            imageUrl: '/images/graphics/projects.png',
           };
 
     const { ranOnce } = this.state;

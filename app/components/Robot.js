@@ -3,7 +3,7 @@ import { SingleMessage } from "./SingleMessage";
 import { Link } from "react-router-dom";
 
 export const Robot = (props) => {
-  const { robot } = props.robot ? props : {};
+  const { robot } = props.robot ? props : { robot: {} };
   const { ranOnce } = props;
 
   return (

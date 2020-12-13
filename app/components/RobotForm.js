@@ -4,7 +4,6 @@ import React from "react";
 const RobotForm = (props) => {
   const { onChange, onSubmit } = props;
   const { formDetails } = props;
-  // const { state } = props.state ? props : {};
 
   const { formObject } = props.formObject
     ? props

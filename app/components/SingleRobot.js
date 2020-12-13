@@ -37,6 +37,7 @@ export class SingleRobot extends React.Component {
 
   render() {
     const { robot } = this.props;
+
     const projects =
       robot && robot.projects
         ? robot.projects.map((project) => (
@@ -45,16 +46,19 @@ export class SingleRobot extends React.Component {
             </Link>
           ))
         : [];
+
     const message =
       robot && projects && projects.length > 0
         ? {
             title: "Projects",
             header: `Assigned to ${robot.name}:`,
             content: projects,
+            imageUrl: '/images/graphics/projects.png'
           }
-        : { title: "Projects", header: `None Found for: ${robot.name}` };
+        : { title: "Projects", header: `None Found for: ${robot.name}`, imageUrl: '/images/graphics/projects.png' };
 
     const { ranOnce } = this.state;
+
     return (
       <div>
         <Robot robot={robot} ranOnce={ranOnce} />

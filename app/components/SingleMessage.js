@@ -3,9 +3,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 export const SingleMessage = (props) => {
-  const { message } = props.message ? props : {};
+  const { message } = props.message ? props : { message: {} };
   const { match, history } = props;
-  console.log("Single message props:", props);
 
   return (
     <div className="all-items">
@@ -38,11 +37,13 @@ export const SingleMessage = (props) => {
               ) : (
                 ""
               )}
-              {message.content?message.content.map((item, index) => (
-                <div key={index} className="item-detail">
-                  {item}
-                </div>
-              )):""}
+              {message.content
+                ? message.content.map((item, index) => (
+                    <div key={index} className="item-detail">
+                      {item}
+                    </div>
+                  ))
+                : ""}
             </div>
           </div>
         ) : (

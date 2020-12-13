@@ -320,21 +320,24 @@ main {
 }
 
 .form-details .success-box{
-  font-size: 0.9em;
+  font-size: 0.8em;
   margin: 5px;
   padding: 5px;
   background-color: #cbf4b7;
-  border: 2px solid rgb(20, 97, 57);
+  border: 2px solid rgb(54, 148, 99);
+  color: rgb(30, 109, 30);
   align-self: center;
   width: 100%
 }
 
 .success-box a{
+  font-size: 1em;
+  text-decoration: underline;
   color: rgb(8, 52, 8);
 }
 
 .success-box a:hover{
-  color: rgb(50, 84, 20);
+  color: rgb(133, 138, 36);
 }
 
 /* Robot Displays Styling */
@@ -455,11 +458,14 @@ main {
 
 .all-projects {
   display: flex;
-  flex-flow: column;
+  flex-flow: row wrap;
   justify-content: space-around;
   padding: 0;
-  margin-top: 10px;
+  margin: 10px;
   list-style: none;
+  flex-basis: 2;
+  align-content: flex-start;
+  max-width: 60%;
 }
 
 .single-project {

@@ -8,25 +8,11 @@ import SingleProject from "./SingleProject";
 import { NotFound } from "./NotFound";
 import { SingleMessage } from "./SingleMessage";
 
-
 const Routes = () => {
-
-  const formDetails = {
-    title: 'Add a Robot',
-  }
-
   return (
     <Router>
       <div>
         <nav>
-          {/* <Route
-            path="/"
-            render={(routeProps) => (
-              <div>
-                <Navbar {...routeProps} />
-              </div>
-            )}
-          /> */}
           <Navbar />
         </nav>
         <main>
@@ -39,42 +25,14 @@ const Routes = () => {
                 const message = {
                   title: "Welcome!",
                   header: "To my Robot JPFP!",
-                  content: [<a href="/robots">Robots</a>,<a href="/projects">Projects</a>],
+                  content: [
+                    <a href="/robots">Robots</a>,
+                    <a href="/projects">Projects</a>,
+                  ],
                 };
                 return <SingleMessage {...routeProps} message={message} />;
               }}
             />
-            {/* <Route
-            exact
-            path="/"
-            render={() => (
-              <div className="single-robot">
-                <div className="robot-bio-data">
-                  <div className="robot-avatar">
-                    <img
-                      className="avatar"
-                      src="images/robots/Robot_Avatars_50.png"
-                    />
-                  </div>
-                  <div className="robot-name">Hello!</div>
-                </div>
-                <div className="robot-details">
-                  <div className="robot-welcome">
-                    <p>Welcome to my Robot JPFP!</p>
-                    <p style={{ textAlign: "center" }}>
-                      <span>
-                        <Link to="/robots">Robots</Link>
-                      </span>{" "}
-                      |{" "}
-                      <span>
-                        <Link to="/projects">Projects</Link>
-                      </span>
-                    </p>
-                  </div>
-                </div>
-              </div>
-            )}
-          /> */}
             <Route
               exact
               path="/robots"
