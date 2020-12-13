@@ -12,7 +12,7 @@ export const Robot = (props) => {
         <SingleMessage
           message={{
             title: "Loading...",
-            imageUrl: "images/preloading.gif",
+            imageUrl: "/images/preloading.gif",
             header: "Fetching Robot.",
           }}
         />

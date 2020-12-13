@@ -10,7 +10,7 @@ export const ProjectsList = (props) => {
     <div className="all-projects">
       {console.log("projects list props", props)}
       {!ranOnce ? (
-        <SingleMessage message={{title:"Loading...",imageUrl:"images/preloading.gif",header:"Fetching projects."}} />
+        <SingleMessage message={{title:"Loading...",imageUrl:"/images/preloading.gif",header:"Fetching projects."}} />
       ) : projects && projects.length > 0 ? (
         projects.map((project) => {
           return <SingleProject key={project.id} project={project} />;

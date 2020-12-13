@@ -13,7 +13,7 @@ export const Project = (props) => {
         <SingleMessage
           message={{
             title: "Loading...",
-            imageUrl: "images/preloading.gif",
+            imageUrl: "/images/preloading.gif",
             header: "Fetching Project.",
           }}
         />
