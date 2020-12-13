@@ -43,6 +43,7 @@ const Robot = db.define("robot", {
     type: Sequelize.FLOAT,
     allowNull: false,
     validate: {
+      isNumeric: true, 
       notEmpty: true,
       max: 100,
       min: 0,

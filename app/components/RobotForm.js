@@ -60,7 +60,7 @@ const RobotForm = (props) => {
                     {keyElem[0].toUpperCase() + keyElem.slice(1)}
                   </label>
                   {formObjectRules[keyElem] && Object.keys(formObjectRules[keyElem])[0]=='select' ?
-                  <select>
+                  <select name={keyElem} value={state[keyElem]}>
                     {formObjectRules[keyElem]['select'].map(optionElem=>(<option value={optionElem}>{optionElem}</option>))}
                   </select>
                   :
@@ -88,8 +88,9 @@ const RobotForm = (props) => {
           >
             Submit
           </button>
+
           {formDetails.error&&formDetails.error.length>0?<div className='err-box'>{formDetails.error}</div>:''}
-          {formDetails.success&&formDetails.success.length>0?<div className='success-box'>{formDetails.success[0]}</div>:''}
+          {formDetails.success&&formDetails.success.length>0?<div className='success-box'>{formDetails.success[0]}</div>:<div>{formDisabled ? <p>Please fill out all fields</p>:<p>{""}</p>}</div>}
         </div>
       </form>
     </div>

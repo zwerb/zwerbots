@@ -3,6 +3,7 @@ import RobotForm from "./RobotForm";
 import { fetchAddRobot, clearRobot } from "../redux/singleRobot";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 export class CreateRobot extends Component {
   constructor(props) {
@@ -10,8 +11,11 @@ export class CreateRobot extends Component {
     this.state = {
       ranOnce: false,
       formObjectRules: {
+        imageUrl: {
+          select: [],
+        },
         fuelType: {
-          select: ["gas", "electric", "diesel"],
+          select: [],
         },
       },
     };
@@ -22,11 +26,31 @@ export class CreateRobot extends Component {
 
   async componentDidMount(event) {
     try {
+      const response = await axios.get("/api/robots/images");
+      const robotImagesList = response.data;
+
+      const defaultImagesList = [
+        "/images/robots/Robot_Avatars_10.png",
+        "/images/robots/Robot_Avatars_20.png",
+        "/images/robots/Robot_Avatars_30.png",
+        "/images/robots/Robot_Avatars_40.png",
+        "/images/robots/Robot_Avatars_50.png",
+      ];
+
       this.setState({
         ...this.state,
         formDetails: {
           title: "Add a Robot",
           hidden: true,
+        },
+        formObjectRules: {
+          ...this.state.formObjectRules,
+          imageUrl: {
+            select: robotImagesList ? [...robotImagesList] : [...defaultImagesList],
+          },
+          fuelType: {
+            select: ["gas", "electric", "diesel"],
+          },
         },
       });
     } catch (err) {
@@ -63,12 +87,17 @@ export class CreateRobot extends Component {
     try {
       event.preventDefault();
       console.log("Just submitted:", this.state.formState);
-      // const res = await axios.post("/api/robots",this.state);
-      const response = await this.props.addRobot(this.state.formState);
+      const RobotToCreate = {...this.state.formState, imageUrl: ('/images/robots/'+this.state.formState.imageUrl
+      )}
+      const response = await this.props.addRobot(RobotToCreate);
       if (response.status && response.status > 201) {
         console.log("Need to put a user-indicator here", response);
         this.setState({
-          formDetails: { ...this.state.formDetails, error: response.data },
+          formDetails: {
+            ...this.state,
+            ...this.state.formDetails,
+            error: response.data,
+          },
         });
       } else {
         const newState = Object.keys(this.state.formState).reduce(
@@ -110,7 +139,7 @@ export class CreateRobot extends Component {
           robot: {
             id: -1,
             name: "Slimothy",
-            imageUrl: "/images/robots.default.png",
+            imageUrl: "/images/robots/default.png",
             fuelType: "gas",
             fuelLevel: 88.5,
           },
