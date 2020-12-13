@@ -29,6 +29,8 @@ const RobotForm = (props) => {
 
   const formDisabled = formInvalidInputs.length > 0;
 
+  const { formObjectRules } = props.formObjectRules ? props : {formObjectRules: {}};
+
   console.log("form props: ", props);
   // console.log("form robot: ", robot);
   // console.log("form details: ", formDetails);
@@ -57,6 +59,11 @@ const RobotForm = (props) => {
                   <label htmlFor={keyElem}>
                     {keyElem[0].toUpperCase() + keyElem.slice(1)}
                   </label>
+                  {formObjectRules[keyElem] && Object.keys(formObjectRules[keyElem])[0]=='select' ?
+                  <select>
+                    {formObjectRules[keyElem]['select'].map(optionElem=>(<option value={optionElem}>{optionElem}</option>))}
+                  </select>
+                  :
                   <input
                     placeholder={formObject[keyElem]}
                     value={state[keyElem]}
@@ -68,7 +75,7 @@ const RobotForm = (props) => {
                         ? ""
                         : "invalid"
                     }
-                  />
+                  />}
                 </div>
               );
             })}

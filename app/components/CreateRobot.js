@@ -7,24 +7,38 @@ import { Link } from "react-router-dom";
 export class CreateRobot extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      ranOnce: false,
+      formObjectRules: {
+        fuelType: {
+          select: ["gas", "electric", "diesel"],
+        },
+      },
+    };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.toggleHidden = this.toggleHidden.bind(this);
   }
 
-  componentDidMount(event) {
-    this.setState({
-      formDetails: {
-        title: "Add a Robot",
-        hidden: true,
-      },
-    });
+  async componentDidMount(event) {
+    try {
+      this.setState({
+        ...this.state,
+        formDetails: {
+          title: "Add a Robot",
+          hidden: true,
+        },
+      });
+    } catch (err) {
+      console.error(err);
+    }
+    this.setState({ ...this.state, ranOnce: true });
   }
 
-  toggleHidden(){
+  toggleHidden() {
     this.setState({
-      formDetails: { 
+      ...this.state,
+      formDetails: {
         ...this.state.formDetails,
         hidden: !this.state.formDetails.hidden,
       },
@@ -33,6 +47,7 @@ export class CreateRobot extends Component {
 
   onChange(event) {
     this.setState({
+      ...this.state,
       formState: {
         ...this.state.formState,
         [event.target.name]: event.target.value,
@@ -42,6 +57,7 @@ export class CreateRobot extends Component {
 
   async onSubmit(event) {
     this.setState({
+      ...this.state,
       formDetails: { ...this.state.formDetails, error: null, success: null },
     });
     try {
@@ -66,6 +82,7 @@ export class CreateRobot extends Component {
         const newRobot = response;
 
         this.setState({
+          ...this.state,
           formState: { ...newState },
           formDetails: {
             ...this.state.formDetails,
@@ -87,15 +104,17 @@ export class CreateRobot extends Component {
   }
 
   render() {
-    const { robot } = this.props.robot ? this.props : {
-      robot: {
-        id: -1,
-        name: "Slimothy",
-        imageUrl: "/images/robots.default.png",
-        fuelType: "gas",
-        fuelLevel: 88.5,
-      },
-    };
+    const { robot } = this.props.robot
+      ? this.props
+      : {
+          robot: {
+            id: -1,
+            name: "Slimothy",
+            imageUrl: "/images/robots.default.png",
+            fuelType: "gas",
+            fuelLevel: 88.5,
+          },
+        };
     const { formDetails } = this.state.formDetails
       ? this.state
       : {
@@ -126,6 +145,7 @@ export class CreateRobot extends Component {
           formDetails={formDetails}
           state={this.state.formState ? this.state.formState : {}}
           formObject={robot}
+          formObjectRules={this.state.formObjectRules}
         />
       </div>
     );
