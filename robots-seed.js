@@ -36,7 +36,7 @@ function randomFuelType() {
 }
 
 function randomFuelLevel() {
-  return Math.floor(Math.random() * (1000 - 100) + 100) / 100;
+  return Math.floor(Math.random() * (1000 - 100) + 100) / 10;
 }
 
 function generateRandomRobots() {

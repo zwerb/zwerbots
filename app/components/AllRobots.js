@@ -10,7 +10,7 @@ import robotsSeed from "../../robots-seed";
 export class AllRobots extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = { ranOnce: false };
     this.updateLocalList = this.updateLocalList.bind(this);
   }
 
@@ -19,28 +19,31 @@ export class AllRobots extends React.Component {
     const { robots } = this.props.robots ? this.props : [];
     this.setState({
       robots: robots,
-    })
+      ranOnce: !this.state.ranOnce,
+    });
   }
 
   updateLocalList(robot) {
     //...
-    console.log("tried to update list");
-    console.log("deez props", this.props);
-    console.log("deez state", this.state);
+    // console.log("tried to update list");
+    // console.log("deez props", this.props);
+    // console.log("deez state", this.state);
     this.setState({
-      robots: [...this.state.robots,robot]
-    })
+      robots: [...this.state.robots, robot],
+    });
   }
 
   render() {
     const { robots } = this.state.robots ? this.state : [];
-    // const { match } = this.props || {};
     return (
       <div className="robots-section">
         <h4>Robots</h4>
 
         <div className="robots-content-container">
-          <RobotsList robots={robots ? robots : []} />
+          <RobotsList
+            robots={robots ? robots : []}
+            ranOnce={this.state.ranOnce}
+          />
           <CreateRobot updateLocalList={this.updateLocalList} />
         </div>
       </div>
