@@ -8,8 +8,8 @@ export const RobotsList = (props) => {
   const { robots } = props.robots ? props : { robots: [] };
   const { ranOnce } = props;
 
-  const { sortBy } = props.sortBy ? props : { sortBy: "createdAt" };
-  const { sortDesc } = props.sortDesc ? props : { sortDesc: false };
+  const { sortBy } = props.sortBy ? props : { sortBy: "updatedAt" };
+  const { sortDesc } = props.sortDesc ? props : { sortDesc: true };
 
   // TODO: Some intricate filtering that needs to be pulled out as am import
   const { filterFields } = props.filterFields
