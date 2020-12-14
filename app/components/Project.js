@@ -11,7 +11,7 @@ export const Project = (props) => {
     ? props
     : { deleteProject: () => {} };  
   return (
-    <div>
+    <div className="single-project-clear">
       {!ranOnce ? (
         <SingleMessage
           message={{
