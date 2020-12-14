@@ -28,7 +28,7 @@ const RobotForm = (props) => {
     .filter((keyElem) => !state[keyElem] || state[keyElem].length < 1);
 
   const formDisabled =
-  (formInvalidInputs.length > 0 && !props.updateObject) ||
+    (formInvalidInputs.length > 0 && !props.updateObject) ||
     (props.updateObject && formValidInputs.length < 1);
 
   const { formObjectRules } = props.formObjectRules
@@ -67,13 +67,15 @@ const RobotForm = (props) => {
                   Object.keys(formObjectRules[keyElem])[0] == "select" ? (
                     <select name={keyElem} value={state[keyElem]}>
                       {formObjectRules[keyElem]["select"].map((optionElem) => (
-                        <option key={optionElem} value={optionElem}>{optionElem}</option>
+                        <option key={optionElem} value={optionElem}>
+                          {optionElem}
+                        </option>
                       ))}
                     </select>
                   ) : (
                     <input
                       placeholder={formObject[keyElem]}
-                      value={state[keyElem]||""}
+                      value={state[keyElem] || ""}
                       onChange={onChange}
                       type="text"
                       name={keyElem}
@@ -92,7 +94,6 @@ const RobotForm = (props) => {
           >
             Submit
           </button>
-         
 
           {formDetails.error && formDetails.error.length > 0 ? (
             <div className="err-box">{formDetails.error}</div>
@@ -103,7 +104,15 @@ const RobotForm = (props) => {
             <div className="success-box">{formDetails.success[0]}</div>
           ) : (
             <div>
-              {formDisabled ? <p>Please fill out all fields</p> : <p>{""}</p>}
+              {formDisabled ? (
+                props.updateObject ? (
+                  <p>Please update one or more fields</p>
+                ) : (
+                  <p>Please fill out all fields</p>
+                )
+              ) : (
+                <p>{""}</p>
+              )}
             </div>
           )}
         </div>
