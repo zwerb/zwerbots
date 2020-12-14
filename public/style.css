@@ -391,7 +391,7 @@ main {
 .single-robot {
   display: flex;
   flex-flow: column;
-  justify-content: space-around;
+  justify-content: flex-start;
   padding: 0;
   margin: 0;
   list-style: none;
@@ -404,20 +404,45 @@ main {
   margin-top: 10px;
 }
 
+.robot-settings-data{
+  /* padding: 2px; */
+  margin: 2px 5px 2px 5px;
+  width: auto;
+  line-height: 20px;
+  color: rgb(44, 52, 52);
+  font-weight: bold;
+  font-size: 1em;
+  text-align: center;
+
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+}
+
+.robot-delete-button{
+  color: rgb(125, 21, 21);
+  text-align: center;
+  line-height: 20px;
+}
+
+.robot-delete-button:hover{
+  color: rgb(174, 55, 55);
+}
+
 .robot-bio-data {
-  background: papayawhip;
-  padding: 2px;
+  background: rgb(255, 239, 213);
   border: 1px solid silver;
-  margin: 5px;
+  margin: 5px 5px 10px 5px;
   padding: 5px;
   width: auto;
   line-height: 35px;
   color: darkslategrey;
   font-weight: bold;
-  font-size: 2em;
+  font-size: 1.5em;
   text-align: center;
 
   display: flex;
+  flex-basis: 2;
   flex-flow: row nowrap;
   justify-content: space-around;
   align-items: center;
@@ -442,6 +467,7 @@ main {
 .robot-details {
   font-size: 0.9em;
   display: flex;
+  margin: 5px 5px 2px 5px;
   flex-flow: row-reverse nowrap;
   justify-content: space-around;
   align-items: center;

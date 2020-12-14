@@ -17,7 +17,9 @@ router.get("/", async (req, res, next) => {
 router.get("/images", async (req, res, next) => {
   try {
     // !REPLACE - Below Development Comment
-    const images = await fs.readdir(path.join(__dirname, "../../public/images/robots"));
+    const images = await fs.readdir(
+      path.join(__dirname, "../../public/images/robots")
+    );
     res.json(images);
   } catch (error) {
     next(error);
@@ -44,6 +46,44 @@ router.post("/", async (req, res, next) => {
   try {
     const robot = await Robot.create(req.body);
     res.status(201).json(robot);
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.delete("/:robotId", async (req, res, next) => {
+  try {
+    const response = await Robot.destroy({
+      where: {
+        id: req.params.robotId,
+      },
+    });
+    console.log("delete repsonse: ", response);
+
+    const robot = response.data ? response.data : response;
+
+    res.status(204).json(robot);
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.put("/:robotId", async (req, res, next) => {
+  try {
+    const response = await Robot.update(req.body, {
+      where: {
+        id: req.params.robotId,
+      },
+      returning: true,
+      plain: true,
+    });
+
+    console.log("udpate repsonse: ", response);
+
+    const robot =
+      response.data && response.data[1] ? response.data[1] : response;
+
+    res.status(202).json(robot);
   } catch (error) {
     next(error);
   }

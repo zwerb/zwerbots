@@ -6,6 +6,8 @@ export const Robot = (props) => {
   const { robot } = props.robot ? props : { robot: {} };
   const { ranOnce } = props;
 
+  const { deleteRobot } = props.deleteRobot ? props : { deleteRobot: () => {} };
+
   return (
     <div>
       {!ranOnce ? (
@@ -19,6 +21,17 @@ export const Robot = (props) => {
       ) : robot && robot.id ? (
         <div className="single-robot">
           <div>
+            <div className="robot-settings-data">
+              <button
+                type="button"
+                onClick={() => {
+                  deleteRobot(robot.id);
+                }}
+                className="robot-delete-button"
+              >
+                X
+              </button>
+            </div>
             <div className="robot-bio-data">
               <div className="robot-avatar">
                 {" "}

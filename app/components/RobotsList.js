@@ -1,11 +1,12 @@
 /* eslint-disable complexity */
 import React from "react";
-import { SingleRobot } from "./SingleRobot";
+import SingleRobot from "./SingleRobot";
 import { SingleMessage } from "./SingleMessage";
 
 export const RobotsList = (props) => {
   // Gratuitous deconstructed type checking:
   const { robots } = props.robots ? props : { robots: [] };
+
   const { ranOnce } = props;
 
   const { sortBy } = props.sortBy ? props : { sortBy: "updatedAt" };
@@ -39,9 +40,9 @@ export const RobotsList = (props) => {
     let tmpRobots = robots;
     filterFields.forEach((field, filterIndex) => {
       tmpRobots = tmpRobots.filter((robot) => {
-        return (operators[filterOperators[filterIndex]](
+        return operators[filterOperators[filterIndex]](
           robot[filterFields[filterIndex]],
-          filterOperands[filterIndex])
+          filterOperands[filterIndex]
         );
       });
     });
@@ -70,10 +71,10 @@ export const RobotsList = (props) => {
 
   console.log("sortBy, sortDesc", sortBy, sortDesc);
   console.log(robotsDisplay.map((robot) => robot.id));
+  console.log('robots display',robotsDisplay)
 
   return (
     <div className="all-robots">
-      {console.log("props: ", props)}
       {!ranOnce ? (
         <SingleMessage
           message={{
@@ -82,10 +83,19 @@ export const RobotsList = (props) => {
             header: "Fetching robots.",
           }}
         />
-      ) : robots && robots.length > 0 ? (
-        robotsDisplay.map((robot) => (
-          <SingleRobot key={robot.id} robot={robot} />
-        ))
+      ) : robotsDisplay.length > 0 ? (
+        robotsDisplay.map((robot) => {
+          return (
+          <SingleRobot
+            key={robot.id}
+            robot={robot}
+            removeFromLocalList={
+              props.removeFromLocalList ? props.removeFromLocalList : () => {}
+            }
+          />
+        )
+          }
+        )
       ) : (
         <p>No Robots!</p>
       )}

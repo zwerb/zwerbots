@@ -2,18 +2,24 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { fetchRobot, clearRobot } from "../redux/singleRobot";
+import { fetchRobot, clearRobot, fetchDeleteRobot } from "../redux/singleRobot";
 import { SingleMessage } from "./SingleMessage";
-import { Robot } from './Robot'
+import { Robot } from "./Robot";
 
 export class SingleRobot extends React.Component {
   constructor(props) {
     super(props);
     this.state = { ranOnce: false };
+    this.handleDelete = this.handleDelete.bind(this);
   }
 
   async componentDidMount() {
-    const { robot } = this.props;
+    const robot = this.props.robot
+      ? this.props.robot
+      : this.props.storeRobot
+      ? this.props.storeRobot
+      : {};
+
     if (
       !robot ||
       !robot.id ||
@@ -25,8 +31,20 @@ export class SingleRobot extends React.Component {
         console.error(err);
       }
     }
+    this.setState({ ...this.state, robot: robot, ranOnce: true });
+  }
 
-    this.setState({ ...this.state, ranOnce: true });
+  async handleDelete(robotId) {
+    try {
+      console.log("trying to delete:", robotId);
+      const deleted = await this.props.deleteRobot(robotId);
+      console.log("deleted response:", deleted);
+      console.log("do we have a removeFromLocalList:", this.props);
+      this.props.removeFromLocalList(robotId);
+
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   componentWillUnmount() {
@@ -36,7 +54,12 @@ export class SingleRobot extends React.Component {
   }
 
   render() {
-    const { robot } = this.props;
+    const robot =
+      this.props.robot && this.props.robot.id
+        ? this.props.robot
+        : this.props.storeRobot && this.props.storeRobot.id
+        ? this.props.storeRobot
+        : {};
 
     const projects =
       robot && robot.projects
@@ -48,20 +71,33 @@ export class SingleRobot extends React.Component {
         : [];
 
     const message =
-      robot && projects && projects.length > 0
+      robot && robot.id && robot.name && projects && projects.length > 0
         ? {
             title: "Projects",
             header: `Assigned to ${robot.name}:`,
             content: projects,
-            imageUrl: '/images/graphics/projects.png'
+            imageUrl: "/images/graphics/projects.png",
           }
-        : { title: "Projects", header: `None Found for: ${robot.name}`, imageUrl: '/images/graphics/projects.png' };
+        : {
+            title: "Projects",
+            header: `No Projects for: ${robot.name}`,
+            imageUrl: "/images/graphics/projects.png",
+          };
 
     const { ranOnce } = this.state;
 
     return (
       <div>
-        <Robot robot={robot} ranOnce={ranOnce} />
+        <Robot
+          deleteRobot={this.handleDelete}
+          robot={robot}
+          ranOnce={ranOnce}
+          removeFromLocalList={
+            this.props.removeFromLocalList
+              ? this.props.removeFromLocalList
+              : () => {}
+          }
+        />
         {this.props.match && this.props.match.params ? (
           <SingleMessage message={message} />
         ) : (
@@ -85,7 +121,7 @@ export class SingleRobot extends React.Component {
 
 const mapState = (state) => {
   return {
-    robot: state.robot,
+    storeRobot: state.robot,
   };
 };
 
@@ -93,6 +129,7 @@ const mapDispatch = (dispatch) => {
   return {
     getRobot: (robotId) => dispatch(fetchRobot(robotId)),
     clearRobot: () => dispatch(clearRobot()),
+    deleteRobot: (robotId) => dispatch(fetchDeleteRobot(robotId)),
   };
 };
 

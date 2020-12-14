@@ -12,6 +12,7 @@ export class AllRobots extends React.Component {
     super(props);
     this.state = { ranOnce: false };
     this.updateLocalList = this.updateLocalList.bind(this);
+    this.removeFromLocalList = this.removeFromLocalList.bind(this);
   }
 
   async componentDidMount() {
@@ -19,7 +20,7 @@ export class AllRobots extends React.Component {
     const { robots } = this.props.robots ? this.props : [];
     this.setState({
       robots: robots,
-      ranOnce: true
+      ranOnce: true,
     });
   }
 
@@ -29,8 +30,19 @@ export class AllRobots extends React.Component {
     // console.log("deez props", this.props);
     // console.log("deez state", this.state);
     this.setState({
+      ...this.state,
       robots: [...this.state.robots, robot],
     });
+  }
+
+  removeFromLocalList(robotId) {
+    const newList = this.state.robots.filter((robot) => robot.id != robotId);
+    this.setState({
+      ...this.state,
+      robots: [...newList],
+    });
+
+    console.log('new remove state:',this.state)
   }
 
   render() {
@@ -43,6 +55,7 @@ export class AllRobots extends React.Component {
           <RobotsList
             robots={robots ? robots : []}
             ranOnce={this.state.ranOnce}
+            removeFromLocalList={this.removeFromLocalList}
           />
           <CreateRobot updateLocalList={this.updateLocalList} />
         </div>
