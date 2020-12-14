@@ -5,6 +5,44 @@ const CLEAR_ROBOT = "CLEAR_ROBOT";
 const ADD_ROBOT = "ADD_ROBOT";
 const DELETE_ROBOT = "DELETE_ROBOT";
 const UPDATE_ROBOT = "UPDATE_ROBOT";
+const UNASSIGN_PROJECT = "UNASSIGN_PROJECT";
+
+
+export const unassignProject = (reduxMessage) => {
+  return {
+    type: UNASSIGN_PROJECT,
+    reduxMessage,
+  };
+};
+
+export const fetchUnassignProject = (robotId,projectId) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.delete(`/api/robots/${robotId}/${projectId}`);
+      console.log("redux delete response:", response);
+      const { data } = response;
+      const { status } = response;
+      if (status == 202) {
+        dispatch(unassignProject(data));
+        return data;
+      } else {
+        return `Error, robot not updated.`;
+      }
+    } catch (err) {
+      const errObj = Object.getOwnPropertyNames(err).reduce((errObj, prop) => {
+        errObj[prop] = err[prop];
+        return errObj;
+      }, {});
+      console.log("errObj", errObj);
+      if (errObj.response && errObj.response.data && errObj.response.status) {
+        return errObj.response;
+      }
+      // !REMOVE
+      console.error(err);
+    }
+  };
+};
+
 
 export const updateRobot = (robot) => {
   return {

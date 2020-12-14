@@ -5,12 +5,9 @@ const { db, Project, Robot } = require("./server/db");
 const robots = require("./robots-seed");
 const projects = require("./projects-seed");
 
-// !REMOVE - console log
-// console.log(robots);
-// console.log(projects);
-
 const seed = async () => {
   try {
+
     await db.sync({ force: true });
 
     await Promise.all(
@@ -37,10 +34,6 @@ const seed = async () => {
     // Don't add any tasks or projects to the final indicies (test specs)
     const dbRobots = dbRobotsAll.slice(0, dbRobotsAll.length - 1);
     const dbProjects = dbProjectsAll.slice(0, dbProjectsAll.length - 1);
-
-    // !REMOVE - Dev comments
-    // console.log(dbProjectsAll.length, dbProjects.length);
-    // console.log(dbProjectsAll[0], dbProjects[0]);
 
     const numRobots = dbRobots.length || 0;
     const numProjects = dbProjects.length || 0;
@@ -88,61 +81,12 @@ const seed = async () => {
       return randomIndexes;
     });
 
-    const projectAssocations = dbProjects.map((project, index) => {
-      let randomIndexes = [];
-
-      let randomNumberOfIndexes =
-        Math.floor(Math.random() * (maxAssociations - minAssociations)) +
-        minAssociations;
-
-      for (let i = 0; i < randomNumberOfIndexes; i++) {
-        let randomIndex = -1;
-        while (
-          randomIndex < 0 ||
-          randomIndex >= numRobots ||
-          randomIndexes.includes(randomIndex)
-        ) {
-          randomIndex = Math.floor(Math.random() * (numRobots - 1));
-        }
-        randomIndexes.push(randomIndex);
-      }
-
-      // Ensure our first element has multiple associations (test specs)
-      while (index == 0 && randomIndexes.length < 2) {
-        let randomIndex = -1;
-        while (
-          randomIndex < 0 ||
-          randomIndex >= numProjects ||
-          randomIndexes.includes(randomIndex)
-        ) {
-          randomIndex = Math.floor(Math.random() * (numProjects - 1));
-        }
-        randomIndexes.push(randomIndex);
-      }
-
-      return randomIndexes;
-    });
-
-    // !REMOVE logging the associations maps
-    // console.log(robotAssociations);
-    // console.log(projectAssocations);
-
     // Apply the associations by array Id
     await Promise.all(
       dbRobots.map((robot, robotIndex) => {
         return robot.addProjects(
           dbProjects.filter((project, projectIndex) =>
             robotAssociations[robotIndex].includes(projectIndex)
-          )
-        );
-      })
-    );
-
-    await Promise.all(
-      dbProjects.map((project, projectIndex) => {
-        return project.addRobots(
-          dbRobots.filter((robot, robotIndex) =>
-            projectAssocations[projectIndex].includes(robotIndex)
           )
         );
       })

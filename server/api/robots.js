@@ -68,6 +68,25 @@ router.delete("/:robotId", async (req, res, next) => {
   }
 });
 
+router.delete("/:robotId/:projectId", async (req, res, next) => {
+  try {
+    const projectToUnassign = await Project.findByPk(req.params.projectId);
+    const robotToUpdate = await Robot.findByPk(req.params.robotId);
+
+    const response = await robotToUpdate.removeProject(projectToUnassign);
+
+    const responseMessage =
+      response == 1
+        ? `Successfully unassigned Project: [${req.params.projectId}] from Robot: [${req.params.robotId}].`
+        : `Could not unassign Project: [${req.params.projectId}] from Robot: [${req.params.robotId}].`;
+    const responseStatus = response == 1 ? 202 : 404;
+
+    res.status(responseStatus).json(responseMessage);
+  } catch (error) {
+    next(error);
+  }
+});
+
 router.put("/:robotId", async (req, res, next) => {
   try {
     console.log("update api req body: ", req.body);
@@ -82,10 +101,9 @@ router.put("/:robotId", async (req, res, next) => {
 
     console.log("update api repsonse: ", response);
 
-    const robot =
-      response&& response[1] ? response[1] : response;
+    const robot = response && response[1] ? response[1] : response;
 
-      console.log("update api robot: ", robot);
+    console.log("update api robot: ", robot);
 
     res.status(202).json(robot);
   } catch (error) {

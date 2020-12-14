@@ -2,7 +2,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { fetchRobot, clearRobot, fetchDeleteRobot } from "../redux/singleRobot";
+import { fetchRobot, clearRobot, fetchDeleteRobot,fetchUnassignProject } from "../redux/singleRobot";
 import { SingleMessage } from "./SingleMessage";
 import { Robot } from "./Robot";
 import CreateRobot from "./CreateRobot";
@@ -13,6 +13,7 @@ export class SingleRobot extends React.Component {
     this.state = { ranOnce: false };
     this.handleDelete = this.handleDelete.bind(this);
     this.handleUpdate = this.handleUpdate.bind(this);
+    this.handleUnassign = this.handleUnassign.bind(this);
   }
 
   async componentDidMount() {
@@ -60,6 +61,19 @@ export class SingleRobot extends React.Component {
     }
   }
 
+  async handleUnassign(robotId,projectId) {
+    try {
+      this.props.unassignProject(robotId,projectId);
+      const newProjects = this.state.robot.projects.filter(project=>project.id!=projectId)
+      this.setState({
+        ...this.state,
+        robot: { ...this.state.robot, projects: newProjects },
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
   componentWillUnmount() {
     if (this.props.match) {
       this.props.clearRobot();
@@ -67,6 +81,9 @@ export class SingleRobot extends React.Component {
   }
 
   render() {
+
+console.log('singlerobot state',this.state)
+console.log('singlerobot props',this.props)
 
     const robot =
       this.state.robot && this.state.robot.id
@@ -79,10 +96,11 @@ export class SingleRobot extends React.Component {
 
     const projects =
       robot && robot.projects
-        ? robot.projects.map((project) => (
+        ? robot.projects.map((project) => (<span><button onClick={()=>this.handleUnassign(this.state.robot.id,project.id)} className="unassign-button" type="button">X</button>
             <Link key={project.id} to={`/projects/${project.id}`}>
               {project.id}: {project.title}
             </Link>
+            </span>
           ))
         : [];
 
@@ -154,6 +172,7 @@ const mapDispatch = (dispatch) => {
     getRobot: (robotId) => dispatch(fetchRobot(robotId)),
     clearRobot: () => dispatch(clearRobot()),
     deleteRobot: (robotId) => dispatch(fetchDeleteRobot(robotId)),
+    unassignProject: (robotId,projectId) => dispatch(fetchUnassignProject(robotId,projectId)),
   };
 };
 
