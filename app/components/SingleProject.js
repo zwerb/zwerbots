@@ -157,6 +157,7 @@ export class SingleProject extends React.Component {
           project={project}
           ranOnce={ranOnce}
           toggleCompleted={this.props.match ? this.toggleCompleted : () => {}}
+          match={this.props.match}
         />
         {this.props.match &&
         this.props.match.params &&
