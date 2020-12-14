@@ -47,11 +47,17 @@ export const Robot = (props) => {
                 </div>
               </div>
               <div className="robot-details">
+
+              <div className="robot-detail">
+                  <strong>ID:</strong> {robot.id}
+                </div>
+                <div className="robot-detail">
                 <div className="robot-fuelLevel">
-                  Fuel Level {robot.fuelLevel}
+                <strong>Fuel Level:</strong> {robot.fuelLevel}
                 </div>
                 <div className="robot-fuelType">
-                  Fuel Type: {robot.fuelType}
+                <strong>Fuel Type:</strong> {robot.fuelType}
+                </div>
                 </div>
               </div>
             </div>

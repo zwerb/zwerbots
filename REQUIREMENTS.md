@@ -181,7 +181,7 @@ Congrats! You have completed your fifth vertical slice! Make sure to `commit -m 
 
 #### Seeding
 
-- [ ] Seed 100+ robots and 100+ projects
+- [x] Seed 100+ robots and 100+ projects
 - [ ] Implement pagination for robots (e.g. `/robots?page=1` shows the first ten robots, and `/robots?page=2` shows robots 11-20)
 - [ ] Implement pagination for projects (e.g. `/projects?page=1` shows the first ten projects, and `/projects?page=2` shows robots 11-20)
 

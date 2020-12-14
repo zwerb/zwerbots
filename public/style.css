@@ -381,7 +381,7 @@ main {
   list-style: none;
   flex-basis: 2;
   align-content: flex-start;
-  max-width: 50%;
+  max-width: 60%;
 }
 
 .robot-form {
@@ -415,7 +415,7 @@ main {
 
   background: seashell;
   padding: 5px;
-  width: 280px;
+  width: 300px;
   min-height: 180px;
   border: 1px solid silver;
   margin-top: 10px;
@@ -481,13 +481,30 @@ main {
   height: 50px;
 }
 
+.item-details {
+  font-size: 0.9em;
+  display: flex;
+  flex-flow: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
 .robot-details {
   font-size: 0.9em;
   display: flex;
   margin: 5px 5px 2px 5px;
-  flex-flow: row-reverse nowrap;
+  flex-flow: column;
   justify-content: space-around;
   align-items: center;
+}
+
+.robot-detail{
+  font-size: 0.9em;
+  margin: 5px;
+  padding: 5px;
+  background-color: #b9d0de;
+  align-self: left;
+  width: 100%
 }
 
 .robot-details a {
@@ -541,7 +558,7 @@ main {
 
   background: lavenderblush;
   padding: 5px;
-  width: 320px;
+  width: 340px;
   min-height: 180px;
   border: 1px solid silver;
   margin-top: 10px;
@@ -676,4 +693,8 @@ main {
   margin: 2px;
   padding: 2px;
   flex-basis: 4;
+}
+
+.unassign-button{
+  margin: 0 3px 0 3px;
 }
