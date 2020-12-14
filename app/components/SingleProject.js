@@ -2,7 +2,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { fetchProject, clearProject } from "../redux/singleProject";
+import { fetchProject, clearProject, fetchDeleteProject } from "../redux/singleProject";
 import { SingleMessage } from "./SingleMessage";
 import { Project } from "./Project";
 
@@ -10,6 +10,7 @@ export class SingleProject extends React.Component {
   constructor(props) {
     super(props);
     this.state = { ranOnce: false };
+    this.handleDelete = this.handleDelete.bind(this);
   }
 
   async componentDidMount() {
@@ -31,6 +32,15 @@ export class SingleProject extends React.Component {
   componentWillUnmount() {
     if (this.props.match) {
       this.props.clearProject();
+    }
+  }
+
+  async handleDelete(projectId) {
+    try {
+      const deleted = await this.props.deleteProject(projectId);
+      this.props.removeFromLocalList(projectId);
+    } catch (err) {
+      console.error(err);
     }
   }
 
@@ -63,7 +73,7 @@ export class SingleProject extends React.Component {
 
     return (
       <div>
-        <Project project={project} ranOnce={ranOnce} />
+        <Project deleteProject={this.handleDelete} project={project} ranOnce={ranOnce} />
         {this.props.match && this.props.match.params ? (
           <SingleMessage message={message} />
         ) : (

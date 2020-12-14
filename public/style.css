@@ -531,6 +531,31 @@ main {
   margin-top: 10px;
 }
 
+.project-settings-data{
+  /* padding: 2px; */
+  margin: 2px 5px 2px 5px;
+  width: auto;
+  line-height: 20px;
+  color: rgb(44, 52, 52);
+  font-weight: bold;
+  font-size: 1em;
+  text-align: center;
+
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+}
+
+.project-delete-button{
+  color: rgb(125, 21, 21);
+  text-align: center;
+  line-height: 20px;
+}
+
+.project-delete-button:hover{
+  color: rgb(174, 55, 55);
+}
+
 .project-meta-data {
   background: lightsteelblue;
   padding: 2px;

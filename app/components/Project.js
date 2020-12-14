@@ -1,3 +1,4 @@
+/* eslint-disable complexity */
 import React from "react";
 import { SingleMessage } from "./SingleMessage";
 import { Link } from "react-router-dom";
@@ -6,6 +7,8 @@ import moment from "moment";
 export const Project = (props) => {
   const { project } = props.project ? props : {};
   const { ranOnce } = props;
+  const { deleteProject } = props.deleteProject ? props : { deleteProject: () => {} };
+
 
   return (
     <div>
@@ -19,6 +22,21 @@ export const Project = (props) => {
         />
       ) : project && project.id ? (
         <div className="single-project">
+          <div className="project-settings-data">
+            {props.match ? (
+              ""
+            ) : (
+              <button
+                type="button"
+                onClick={() => {
+                  deleteProject(project.id);
+                }}
+                className="project-delete-button"
+              >
+                X
+              </button>
+            )}
+          </div>
           <div className="project-meta-data">
             <div className="project-id">{project.id}</div>
             <div className="project-title">

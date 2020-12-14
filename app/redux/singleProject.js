@@ -3,6 +3,78 @@ import axios from "axios";
 const SET_PROJECT = "SET_PROJECT";
 const CLEAR_PROJECT = "CLEAR_PROJECT";
 const ADD_PROJECT = "ADD_PROJECT";
+const DELETE_PROJECT = "DELETE_PROJECT";
+const UPDATE_PROJECT = "UPDATE_PROJECT";
+
+export const updateProject = (project) => {
+  return {
+    type: UPDATE_PROJECT,
+    project,
+  };
+};
+
+export const fetchUpdateProject = (project) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.put(`/api/projects/${project.id}`,project);
+      console.log("redux put response:", response);
+      const { data } = response;
+      const { status } = response;
+      if (status == 202) {
+        dispatch(updateProject(data));
+        return data;
+      } else {
+        return `Error, project not updated.`;
+      }
+    } catch (err) {
+      const errObj = Object.getOwnPropertyNames(err).reduce((errObj, prop) => {
+        errObj[prop] = err[prop];
+        return errObj;
+      }, {});
+      console.log("errObj", errObj);
+      if (errObj.response && errObj.response.data && errObj.response.status) {
+        return errObj.response;
+      }
+      // !REMOVE
+      console.error(err);
+    }
+  };
+};
+
+export const deleteProject = (project) => {
+  return {
+    type: DELETE_PROJECT,
+    project,
+  };
+};
+
+export const fetchDeleteProject = (projectId) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.delete(`/api/projects/${projectId}`);
+      const { data } = response;
+      const { status } = response;
+      if (status == 204) {
+        dispatch(deleteProject({}));
+        return `Success, project ${projectId} deleted.`;
+      } else {
+        return `Error, project not deleted.`;
+        // throw Error('Project not deleted.')
+      }
+    } catch (err) {
+      const errObj = Object.getOwnPropertyNames(err).reduce((errObj, prop) => {
+        errObj[prop] = err[prop];
+        return errObj;
+      }, {});
+      console.log("errObj", errObj);
+      if (errObj.response && errObj.response.data && errObj.response.status) {
+        return errObj.response;
+      }
+      // !REMOVE
+      console.error(err);
+    }
+  };
+};
 
 export const addProject = (project) => {
   return {
@@ -66,6 +138,10 @@ export default (state = initialState, action) => {
       return action.project;
     case ADD_PROJECT:
       return action.project;
+      case UPDATE_PROJECT:
+        return action.project;
+      case DELETE_PROJECT:
+        return action.project;
     case CLEAR_PROJECT:
       return action.project;
     default:

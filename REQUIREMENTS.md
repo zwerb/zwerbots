@@ -91,8 +91,8 @@ Congrats! You have completed your second vertical slice! Make sure to `commit -m
 
 #### Backend
 
-- [ ] Write a route to add a new robot
-- [ ] Write a route to add a new project
+- [x] Write a route to add a new robot
+- [x] Write a route to add a new project
 
 Congrats! You have completed your third vertical slice! Make sure to `commit -m "Feature: Add Robot and Project"` before moving on (see RUBRIC.md - points are awarded/deducted for a proper git workflow)!
 

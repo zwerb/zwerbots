@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { fetchProjects } from "../redux/projects";
+import { fetchDeleteProject } from "../redux/singleProject";
 import { ProjectsList } from "./ProjectsList";
 import CreateProject from "./CreateProject";
 
@@ -15,6 +16,7 @@ export class AllProjects extends React.Component {
     super(props);
     this.state = { ranOnce: false };
     this.updateLocalList = this.updateLocalList.bind(this);
+    this.removeFromLocalList = this.removeFromLocalList.bind(this);
   }
 
   async componentDidMount() {
@@ -22,7 +24,7 @@ export class AllProjects extends React.Component {
     const { projects } = this.props.projects ? this.props : [];
     this.setState({
       projects: projects,
-      ranOnce: true
+      ranOnce: true,
     });
   }
 
@@ -32,13 +34,29 @@ export class AllProjects extends React.Component {
     });
   }
 
+  removeFromLocalList(projectId) {
+    const newList = this.state.projects.filter(
+      (project) => project.id != projectId
+    );
+    this.setState({
+      ...this.props,
+      projects: [...newList],
+    });
+  }
+
   render() {
+
     const { projects } = this.state.projects ? this.state : [];
     return (
       <div className="projects-section">
-              <h4>Projects</h4>
+        <h4>Projects</h4>
         <div className="projects-content-container">
-          <ProjectsList projects={projects} ranOnce={this.state.ranOnce}/>
+          <ProjectsList
+            projects={projects}
+            ranOnce={this.state.ranOnce}
+            removeFromLocalList={this.removeFromLocalList}
+            deleteProject={this.props.deleteProject}
+          />
           <CreateProject updateLocalList={this.updateLocalList} />
         </div>
       </div>
@@ -55,6 +73,7 @@ const mapState = (state) => {
 const mapDispatch = (dispatch) => {
   return {
     getProjects: () => dispatch(fetchProjects()),
+    deleteProject: (projectId) => dispatch(fetchDeleteProject(projectId)),
   };
 };
 

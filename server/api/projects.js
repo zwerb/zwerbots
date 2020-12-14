@@ -41,4 +41,46 @@ router.post("/", async (req, res, next) => {
   }
 });
 
+router.delete("/:projectId", async (req, res, next) => {
+  try {
+    const response = await Project.destroy({
+      where: {
+        id: req.params.projectId,
+      },
+    });
+    console.log("delete repsonse: ", response);
+
+    const project = response.data ? response.data : response;
+
+    res.status(204).json(project);
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.put("/:projectId", async (req, res, next) => {
+  try {
+    console.log("update api req body: ", req.body);
+
+    const response = await Project.update(req.body, {
+      where: {
+        id: req.params.projectId,
+      },
+      returning: true,
+      plain: true,
+    });
+
+    console.log("update api repsonse: ", response);
+
+    const project =
+      response&& response[1] ? response[1] : response;
+
+      console.log("update api project: ", project);
+
+    res.status(202).json(project);
+  } catch (error) {
+    next(error);
+  }
+});
+
 module.exports = router;

@@ -18,7 +18,15 @@ export const ProjectsList = (props) => {
         />
       ) : projects && projects.length > 0 ? (
         projects.map((project) => {
-          return <SingleProject key={project.id} project={project} />;
+          return (
+            <SingleProject
+              key={project.id}
+              project={project}
+              removeFromLocalList={
+                props.removeFromLocalList ? props.removeFromLocalList : () => {}}
+              deleteProject={props.deleteProject ? props.deleteProject : () => {}}
+            />
+          );
         })
       ) : (
         <p>No Projects!</p>
