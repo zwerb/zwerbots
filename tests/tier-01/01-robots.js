@@ -39,7 +39,7 @@ import AllProjects from "../../app/components/AllProjects";
 import Routes from "../../app/components/Routes";
 
 xdescribe("Tier One: Robots", () => {
-  // We'll use this array of robots as dummy data for testing purposes
+  // We'll use this array of robots as dummy data for testing purposes 
   const robots = [
     { id: 1, name: "R2-D2", imageUrl: "/images/r2d2.png" },
     { id: 2, name: "WALL-E", imageUrl: "/images/walle.jpeg" },
