@@ -134,7 +134,7 @@ Congrats! You have completed your fourth vertical slice! Make sure to `commit -m
 - Submitting the form with valid data should:
   - [x] Make an AJAX request that causes that robot to be updated in the database
   - [x] Update the robot in the current view without needing to refresh the page
-- [ ] In the single-robot view, display an `Unassign` button next to each of its projects, which unassigns it from that project (in the database as well as this view)
+- [x] In the single-robot view, display an `Unassign` button next to each of its projects, which unassigns it from that project (in the database as well as this view)
 
 - [ ] Write a component to display a form updating _at least_ a project's title and completion status
 - [ ] Display this component EITHER as part of the single-project view, or as its own view
@@ -160,7 +160,7 @@ Congrats! You have completed your fifth vertical slice! Make sure to `commit -m 
 
 #### Finishing Touches
 
-- [ ] If a user attempts to add a new robot or project without a required field, a helpful message should be displayed
+- [x] If a user attempts to add a new robot or project without a required field, a helpful message should be displayed
 - [ ] If a user attempts to access a page that doesn't exist (ex. `/potato`), a helpful "not found" message should be displayed
 - [ ] If a user attempts to view a robot/project that doesn't exist, a helpful message should be displayed
 - [ ] Whenever a component needs to wait for data to load from the server, a "loading" message should be displayed until the data is available

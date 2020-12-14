@@ -2,7 +2,12 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { fetchProject, clearProject, fetchDeleteProject } from "../redux/singleProject";
+import {
+  fetchProject,
+  clearProject,
+  fetchDeleteProject,
+  fetchUnassignRobot,
+} from "../redux/singleProject";
 import { SingleMessage } from "./SingleMessage";
 import { Project } from "./Project";
 
@@ -11,6 +16,7 @@ export class SingleProject extends React.Component {
     super(props);
     this.state = { ranOnce: false };
     this.handleDelete = this.handleDelete.bind(this);
+    this.handleUnassign = this.handleUnassign.bind(this);
   }
 
   async componentDidMount() {
@@ -26,7 +32,11 @@ export class SingleProject extends React.Component {
         console.error(err);
       }
     }
-    this.setState({ ...this.state, ranOnce: true });
+    this.setState({
+      ...this.state,
+      ranOnce: true,
+      project: this.props.project,
+    });
   }
 
   componentWillUnmount() {
@@ -44,15 +54,44 @@ export class SingleProject extends React.Component {
     }
   }
 
+  async handleUnassign(projectId, robotId) {
+    try {
+      this.props.unassignRobot(projectId, robotId);
+      const newRobots = this.state.project.robots.filter(
+        (robot) => robot.id != robotId
+      );
+      this.setState({
+        ...this.state,
+        project: { ...this.state.project, robots: newRobots },
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
   render() {
-    const { project } = this.props;
+
+    const { project } = this.state.project
+      ? this.state
+      : this.props.project
+      ? this.props
+      : {};
 
     const robots =
       project && project.robots
         ? project.robots.map((robot) => (
-            <Link key={robot.id} to={`/robots/${robot.id}`}>
-              {robot.id}: {robot.name}
-            </Link>
+            <span key={robot.id}>
+              <button
+                onClick={() => this.handleUnassign(project.id, robot.id)}
+                className="unassign-button"
+                type="button"
+              >
+                X
+              </button>
+              <Link to={`/robots/${robot.id}`}>
+                {robot.id}: {robot.name}
+              </Link>
+            </span>
           ))
         : [];
     const message =
@@ -66,14 +105,18 @@ export class SingleProject extends React.Component {
         : {
             title: "Robots",
             header: `None Assigned to Project #: ${project.id}`,
-            imageUrl: '/images/graphics/projects.png',
+            imageUrl: "/images/graphics/projects.png",
           };
 
     const { ranOnce } = this.state;
 
     return (
       <div>
-        <Project deleteProject={this.handleDelete} project={project} ranOnce={ranOnce} />
+        <Project
+          deleteProject={this.handleDelete}
+          project={project}
+          ranOnce={ranOnce}
+        />
         {this.props.match && this.props.match.params ? (
           <SingleMessage message={message} />
         ) : (
@@ -105,6 +148,8 @@ const mapDispatch = (dispatch) => {
   return {
     getProject: (projectId) => dispatch(fetchProject(projectId)),
     clearProject: () => dispatch(clearProject()),
+    unassignRobot: (projectId, robotId) =>
+      dispatch(fetchUnassignRobot(projectId, robotId)),
   };
 };
 

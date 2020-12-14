@@ -96,8 +96,8 @@ console.log('singlerobot props',this.props)
 
     const projects =
       robot && robot.projects
-        ? robot.projects.map((project) => (<span><button onClick={()=>this.handleUnassign(this.state.robot.id,project.id)} className="unassign-button" type="button">X</button>
-            <Link key={project.id} to={`/projects/${project.id}`}>
+        ? robot.projects.map((project) => (<span key={project.id} ><button onClick={()=>this.handleUnassign(this.state.robot.id,project.id)} className="unassign-button" type="button">X</button>
+            <Link to={`/projects/${project.id}`}>
               {project.id}: {project.title}
             </Link>
             </span>

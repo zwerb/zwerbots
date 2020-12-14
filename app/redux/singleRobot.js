@@ -7,7 +7,6 @@ const DELETE_ROBOT = "DELETE_ROBOT";
 const UPDATE_ROBOT = "UPDATE_ROBOT";
 const UNASSIGN_PROJECT = "UNASSIGN_PROJECT";
 
-
 export const unassignProject = (reduxMessage) => {
   return {
     type: UNASSIGN_PROJECT,
@@ -15,11 +14,12 @@ export const unassignProject = (reduxMessage) => {
   };
 };
 
-export const fetchUnassignProject = (robotId,projectId) => {
+export const fetchUnassignProject = (robotId, projectId) => {
   return async (dispatch) => {
     try {
-      const response = await axios.delete(`/api/robots/${robotId}/${projectId}`);
-      console.log("redux delete response:", response);
+      const response = await axios.delete(
+        `/api/robots/${robotId}/${projectId}`
+      );
       const { data } = response;
       const { status } = response;
       if (status == 202) {
@@ -33,16 +33,13 @@ export const fetchUnassignProject = (robotId,projectId) => {
         errObj[prop] = err[prop];
         return errObj;
       }, {});
-      console.log("errObj", errObj);
       if (errObj.response && errObj.response.data && errObj.response.status) {
         return errObj.response;
       }
-      // !REMOVE
       console.error(err);
     }
   };
 };
-
 
 export const updateRobot = (robot) => {
   return {
@@ -54,8 +51,7 @@ export const updateRobot = (robot) => {
 export const fetchUpdateRobot = (robot) => {
   return async (dispatch) => {
     try {
-      const response = await axios.put(`/api/robots/${robot.id}`,robot);
-      console.log("redux put response:", response);
+      const response = await axios.put(`/api/robots/${robot.id}`, robot);
       const { data } = response;
       const { status } = response;
       if (status == 202) {
@@ -69,11 +65,9 @@ export const fetchUpdateRobot = (robot) => {
         errObj[prop] = err[prop];
         return errObj;
       }, {});
-      console.log("errObj", errObj);
       if (errObj.response && errObj.response.data && errObj.response.status) {
         return errObj.response;
       }
-      // !REMOVE
       console.error(err);
     }
   };
@@ -97,18 +91,15 @@ export const fetchDeleteRobot = (robotId) => {
         return `Success, robot ${robotId} deleted.`;
       } else {
         return `Error, robot not deleted.`;
-        // throw Error('Robot not deleted.')
       }
     } catch (err) {
       const errObj = Object.getOwnPropertyNames(err).reduce((errObj, prop) => {
         errObj[prop] = err[prop];
         return errObj;
       }, {});
-      console.log("errObj", errObj);
       if (errObj.response && errObj.response.data && errObj.response.status) {
         return errObj.response;
       }
-      // !REMOVE
       console.error(err);
     }
   };
@@ -133,11 +124,9 @@ export const fetchAddRobot = (robot) => {
         errObj[prop] = err[prop];
         return errObj;
       }, {});
-      console.log("errObj", errObj);
       if (errObj.response && errObj.response.data && errObj.response.status) {
         return errObj.response;
       }
-      // !REMOVE
       console.log(err);
     }
   };
@@ -182,6 +171,8 @@ export default (state = initialState, action) => {
       return action.robot;
     case CLEAR_ROBOT:
       return action.robot;
+    case UNASSIGN_PROJECT:
+      return action.reduxMessage;
     default:
       return state;
   }
