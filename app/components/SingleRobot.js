@@ -5,12 +5,14 @@ import { Link } from "react-router-dom";
 import { fetchRobot, clearRobot, fetchDeleteRobot } from "../redux/singleRobot";
 import { SingleMessage } from "./SingleMessage";
 import { Robot } from "./Robot";
+import CreateRobot from "./CreateRobot";
 
 export class SingleRobot extends React.Component {
   constructor(props) {
     super(props);
     this.state = { ranOnce: false };
     this.handleDelete = this.handleDelete.bind(this);
+    this.handleUpdate = this.handleUpdate.bind(this);
   }
 
   async componentDidMount() {
@@ -19,6 +21,9 @@ export class SingleRobot extends React.Component {
       : this.props.storeRobot
       ? this.props.storeRobot
       : {};
+
+    console.log("single robot props", this.props);
+    console.log("single robot state", this.state);
 
     if (
       !robot ||
@@ -31,7 +36,11 @@ export class SingleRobot extends React.Component {
         console.error(err);
       }
     }
-    this.setState({ ...this.state, robot: robot, ranOnce: true });
+    this.setState({
+      ...this.state,
+      robot: this.props.storeRobot ? this.props.storeRobot : robot,
+      ranOnce: true,
+    });
   }
 
   async handleDelete(robotId) {
@@ -41,7 +50,17 @@ export class SingleRobot extends React.Component {
       console.log("deleted response:", deleted);
       console.log("do we have a removeFromLocalList:", this.props);
       this.props.removeFromLocalList(robotId);
+    } catch (err) {
+      console.error(err);
+    }
+  }
 
+  async handleUpdate(robot) {
+    try {
+      this.setState({
+        ...this.state,
+        robot: { ...this.state.robot, ...robot, projects: this.state.robot.projects },
+      });
     } catch (err) {
       console.error(err);
     }
@@ -54,8 +73,14 @@ export class SingleRobot extends React.Component {
   }
 
   render() {
+
+    console.log("single robot props", this.props);
+    console.log("single robot state", this.state);
+
     const robot =
-      this.props.robot && this.props.robot.id
+      this.state.robot && this.state.robot.id
+        ? this.state.robot
+        : this.props.robot && this.props.robot.id
         ? this.props.robot
         : this.props.storeRobot && this.props.storeRobot.id
         ? this.props.storeRobot
@@ -97,12 +122,20 @@ export class SingleRobot extends React.Component {
               ? this.props.removeFromLocalList
               : () => {}
           }
+          match={this.props.match ? this.props.match : undefined}
         />
         {this.props.match && this.props.match.params ? (
           <SingleMessage message={message} />
         ) : (
           ""
         )}
+
+        {this.props.match ? (
+          <CreateRobot robot={robot} handleUpdate={this.handleUpdate} robotId={robot.id} updateObject={true} />
+        ) : (
+          ""
+        )}
+
         {this.props.match && this.props.match.params ? (
           <div>
             <div style={{ textAlign: "center" }}>

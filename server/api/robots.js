@@ -70,6 +70,8 @@ router.delete("/:robotId", async (req, res, next) => {
 
 router.put("/:robotId", async (req, res, next) => {
   try {
+    console.log("update api req body: ", req.body);
+
     const response = await Robot.update(req.body, {
       where: {
         id: req.params.robotId,
@@ -78,10 +80,12 @@ router.put("/:robotId", async (req, res, next) => {
       plain: true,
     });
 
-    console.log("udpate repsonse: ", response);
+    console.log("update api repsonse: ", response);
 
     const robot =
-      response.data && response.data[1] ? response.data[1] : response;
+      response&& response[1] ? response[1] : response;
+
+      console.log("update api robot: ", robot);
 
     res.status(202).json(robot);
   } catch (error) {

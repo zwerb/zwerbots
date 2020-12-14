@@ -1,6 +1,7 @@
+/* eslint-disable complexity */
 import React, { Component } from "react";
 import RobotForm from "./RobotForm";
-import { fetchAddRobot, clearRobot } from "../redux/singleRobot";
+import { fetchAddRobot, clearRobot, fetchUpdateRobot } from "../redux/singleRobot";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -37,16 +38,25 @@ export class CreateRobot extends Component {
         "/images/robots/Robot_Avatars_50.png",
       ];
 
+      const formDetails = this.props.updateObject
+        ? {
+            title: "Update Robot",
+            hidden: true,
+          }
+        : {
+            title: "Add a Robot",
+            hidden: true,
+          };
+
       this.setState({
         ...this.state,
-        formDetails: {
-          title: "Add a Robot",
-          hidden: true,
-        },
+        formDetails,
         formObjectRules: {
           ...this.state.formObjectRules,
           imageUrl: {
-            select: robotImagesList ? [...robotImagesList] : [...defaultImagesList],
+            select: robotImagesList
+              ? [...robotImagesList]
+              : [...defaultImagesList],
           },
           fuelType: {
             select: ["gas", "electric", "diesel"],
@@ -84,13 +94,30 @@ export class CreateRobot extends Component {
       ...this.state,
       formDetails: { ...this.state.formDetails, error: null, success: null },
     });
+
     try {
       event.preventDefault();
-      console.log("Just submitted:", this.state.formState);
-      const RobotToCreate = {...this.state.formState, imageUrl: ('/images/robots/'+this.state.formState.imageUrl
-      )}
-      const response = await this.props.addRobot(RobotToCreate);
-      if (response.status && response.status > 201) {
+
+      const updatedImageUrl = this.state.formState.imageUrl ?  "/images/robots/" + this.state.formState.imageUrl : undefined;
+
+      const RobotToCreate = this.props.updateObject
+        ? {
+            id: this.props.robot.id,
+            ...this.state.formState,
+            imageUrl: updatedImageUrl ? updatedImageUrl : this.props.robot.imageUrl
+          }
+        : {
+            ...this.state.formState,
+            imageUrl: "/images/robots/" + this.state.formState.imageUrl,
+          };
+
+      console.log('submitting robot',RobotToCreate)
+
+      const response = this.props.updateObject
+        ? await this.props.updateRobot(RobotToCreate)
+        : await this.props.addRobot(RobotToCreate);
+
+      if (response.status && response.status > 202) {
         console.log("Need to put a user-indicator here", response);
         this.setState({
           formDetails: {
@@ -112,12 +139,12 @@ export class CreateRobot extends Component {
 
         this.setState({
           ...this.state,
-          formState: { ...newState },
+          formState: { },
           formDetails: {
             ...this.state.formDetails,
             success: [
               <span>
-                {`Successfully created Robot: `}
+                {`Successfully ${this.props.updateObject?'updated':'created'} Robot: `}
                 <Link to={`/robots/${newRobot.id}`}>{newRobot.name}</Link>
               </span>,
             ],
@@ -125,6 +152,8 @@ export class CreateRobot extends Component {
         });
         if (this.props.updateLocalList) {
           this.props.updateLocalList(newRobot);
+        }else{
+          this.props.handleUpdate(newRobot);
         }
       }
     } catch (err) {
@@ -133,16 +162,20 @@ export class CreateRobot extends Component {
   }
 
   render() {
-    const { robot } = this.props.robot
-      ? this.props
+    const robot = this.props.robot
+      ? {
+          id: this.props.robot.id,
+          name: this.props.robot.name,
+          imageUrl: this.props.robot.imageUrl,
+          fuelType: this.props.robot.fuelType,
+          fuelLevel: this.props.robot.fuelLevel,
+        }
       : {
-          robot: {
-            id: -1,
-            name: "Slimothy",
-            imageUrl: "/images/robots/default.png",
-            fuelType: "gas",
-            fuelLevel: 88.5,
-          },
+          id: -1,
+          name: "Slimothy",
+          imageUrl: "/images/robots/default.png",
+          fuelType: "gas",
+          fuelLevel: 88.5,
         };
     const { formDetails } = this.state.formDetails
       ? this.state
@@ -175,6 +208,7 @@ export class CreateRobot extends Component {
           state={this.state.formState ? this.state.formState : {}}
           formObject={robot}
           formObjectRules={this.state.formObjectRules}
+          updateObject={this.props.updateObject}
         />
       </div>
     );
@@ -192,6 +226,7 @@ const mapDispatch = (dispatch) => {
   return {
     addRobot: (robot) => dispatch(fetchAddRobot(robot)),
     clearRobot: () => dispatch(clearRobot()),
+    updateRobot: (robot) => dispatch(fetchUpdateRobot(robot)),
   };
 };
 

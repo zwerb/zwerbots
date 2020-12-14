@@ -8,7 +8,7 @@ const RobotForm = (props) => {
   const { formObject } = props.formObject
     ? props
     : {
-      formObject: {
+        formObject: {
           id: -1,
           name: "Slimothy",
           imageUrl: "/images/robots.default.png",
@@ -27,9 +27,16 @@ const RobotForm = (props) => {
     .filter((keyElem) => keyElem != "id")
     .filter((keyElem) => !state[keyElem] || state[keyElem].length < 1);
 
-  const formDisabled = formInvalidInputs.length > 0;
+console.log('form valid inputs,',formValidInputs)
+console.log('form state,',state)
 
-  const { formObjectRules } = props.formObjectRules ? props : {formObjectRules: {}};
+  const formDisabled =
+  (formInvalidInputs.length > 0 && !props.updateObject) ||
+    (props.updateObject && formValidInputs.length < 1);
+
+  const { formObjectRules } = props.formObjectRules
+    ? props
+    : { formObjectRules: {} };
 
   console.log("form props: ", props);
   // console.log("form robot: ", robot);
@@ -41,41 +48,48 @@ const RobotForm = (props) => {
   return (
     <div className="single-form">
       <form onChange={onChange} onSubmit={onSubmit}>
-       <div onClick={()=>{props.toggleHidden()}} className="form-header">{formDetails.title}</div> 
-          <div className={formDetails.hidden?"form-details hidden":"form-details shown"}>
+        <div
+          onClick={() => {
+            props.toggleHidden();
+          }}
+          className="form-header"
+        >
+          {formDetails.title}
+        </div>
+        <div
+          className={
+            formDetails.hidden ? "form-details hidden" : "form-details shown"
+          }
+        >
           {formObjectKeys
             .filter((keyElem) => keyElem != "id")
             .map((keyElem, index) => {
-              const isValid = !formInvalidInputs.includes(keyElem)
+              const isValid = !formInvalidInputs.includes(keyElem);
               return (
                 <div
                   key={index}
-                  className={
-                    isValid
-                      ? "form-detail"
-                      : "form-detail invalid"
-                  }
+                  className={isValid ? "form-detail" : "form-detail invalid"}
                 >
                   <label htmlFor={keyElem}>
                     {keyElem[0].toUpperCase() + keyElem.slice(1)}
                   </label>
-                  {formObjectRules[keyElem] && Object.keys(formObjectRules[keyElem])[0]=='select' ?
-                  <select name={keyElem} value={state[keyElem]}>
-                    {formObjectRules[keyElem]['select'].map(optionElem=>(<option value={optionElem}>{optionElem}</option>))}
-                  </select>
-                  :
-                  <input
-                    placeholder={formObject[keyElem]}
-                    value={state[keyElem]}
-                    onChange={onChange}
-                    type="text"
-                    name={keyElem}
-                    className={
-                      isValid
-                        ? ""
-                        : "invalid"
-                    }
-                  />}
+                  {formObjectRules[keyElem] &&
+                  Object.keys(formObjectRules[keyElem])[0] == "select" ? (
+                    <select name={keyElem} value={state[keyElem]}>
+                      {formObjectRules[keyElem]["select"].map((optionElem) => (
+                        <option value={optionElem}>{optionElem}</option>
+                      ))}
+                    </select>
+                  ) : (
+                    <input
+                      placeholder={formObject[keyElem]}
+                      value={state[keyElem]}
+                      onChange={onChange}
+                      type="text"
+                      name={keyElem}
+                      className={isValid ? "" : "invalid"}
+                    />
+                  )}
                 </div>
               );
             })}
@@ -89,8 +103,18 @@ const RobotForm = (props) => {
             Submit
           </button>
 
-          {formDetails.error&&formDetails.error.length>0?<div className='err-box'>{formDetails.error}</div>:''}
-          {formDetails.success&&formDetails.success.length>0?<div className='success-box'>{formDetails.success[0]}</div>:<div>{formDisabled ? <p>Please fill out all fields</p>:<p>{""}</p>}</div>}
+          {formDetails.error && formDetails.error.length > 0 ? (
+            <div className="err-box">{formDetails.error}</div>
+          ) : (
+            ""
+          )}
+          {formDetails.success && formDetails.success.length > 0 ? (
+            <div className="success-box">{formDetails.success[0]}</div>
+          ) : (
+            <div>
+              {formDisabled ? <p>Please fill out all fields</p> : <p>{""}</p>}
+            </div>
+          )}
         </div>
       </form>
     </div>

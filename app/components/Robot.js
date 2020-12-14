@@ -2,11 +2,14 @@ import React from "react";
 import { SingleMessage } from "./SingleMessage";
 import { Link } from "react-router-dom";
 
+
 export const Robot = (props) => {
   const { robot } = props.robot ? props : { robot: {} };
   const { ranOnce } = props;
 
   const { deleteRobot } = props.deleteRobot ? props : { deleteRobot: () => {} };
+
+  console.log("robot props", props);
 
   return (
     <div>
@@ -19,36 +22,43 @@ export const Robot = (props) => {
           }}
         />
       ) : robot && robot.id ? (
-        <div className="single-robot">
-          <div>
-            <div className="robot-settings-data">
-              <button
-                type="button"
-                onClick={() => {
-                  deleteRobot(robot.id);
-                }}
-                className="robot-delete-button"
-              >
-                X
-              </button>
-            </div>
-            <div className="robot-bio-data">
-              <div className="robot-avatar">
-                {" "}
-                <img className="avatar" src={robot.imageUrl} />
+          <div className="single-robot">
+            <div>
+              <div className="robot-settings-data">
+                {props.match ? (
+                  ""
+                ) : (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      deleteRobot(robot.id);
+                    }}
+                    className="robot-delete-button"
+                  >
+                    X
+                  </button>
+                )}
               </div>
-              <div className="robot-name">
-                <Link to={`/robots/${robot.id}`}>{robot.name}</Link>{" "}
+              <div className="robot-bio-data">
+                <div className="robot-avatar">
+                  {" "}
+                  <img className="avatar" src={robot.imageUrl} />
+                </div>
+                <div className="robot-name">
+                  <Link to={`/robots/${robot.id}`}>{robot.name}</Link>{" "}
+                </div>
               </div>
-            </div>
-            <div className="robot-details">
-              <div className="robot-fuelLevel">
-                Fuel Level {robot.fuelLevel}
+              <div className="robot-details">
+                <div className="robot-fuelLevel">
+                  Fuel Level {robot.fuelLevel}
+                </div>
+                <div className="robot-fuelType">
+                  Fuel Type: {robot.fuelType}
+                </div>
               </div>
-              <div className="robot-fuelType">Fuel Type: {robot.fuelType}</div>
             </div>
           </div>
-        </div>
+
       ) : (
         <div>
           <h4>Robot Not Found</h4>

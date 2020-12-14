@@ -4,6 +4,42 @@ const SET_ROBOT = "SET_ROBOT";
 const CLEAR_ROBOT = "CLEAR_ROBOT";
 const ADD_ROBOT = "ADD_ROBOT";
 const DELETE_ROBOT = "DELETE_ROBOT";
+const UPDATE_ROBOT = "UPDATE_ROBOT";
+
+export const updateRobot = (robot) => {
+  return {
+    type: UPDATE_ROBOT,
+    robot,
+  };
+};
+
+export const fetchUpdateRobot = (robot) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.put(`/api/robots/${robot.id}`,robot);
+      console.log("redux put response:", response);
+      const { data } = response;
+      const { status } = response;
+      if (status == 202) {
+        dispatch(updateRobot(data));
+        return data;
+      } else {
+        return `Error, robot not updated.`;
+      }
+    } catch (err) {
+      const errObj = Object.getOwnPropertyNames(err).reduce((errObj, prop) => {
+        errObj[prop] = err[prop];
+        return errObj;
+      }, {});
+      console.log("errObj", errObj);
+      if (errObj.response && errObj.response.data && errObj.response.status) {
+        return errObj.response;
+      }
+      // !REMOVE
+      console.error(err);
+    }
+  };
+};
 
 export const deleteRobot = (robot) => {
   return {
@@ -16,7 +52,6 @@ export const fetchDeleteRobot = (robotId) => {
   return async (dispatch) => {
     try {
       const response = await axios.delete(`/api/robots/${robotId}`);
-      console.log(response);
       const { data } = response;
       const { status } = response;
       if (status == 204) {
@@ -103,8 +138,10 @@ export default (state = initialState, action) => {
       return action.robot;
     case ADD_ROBOT:
       return action.robot;
-      case DELETE_ROBOT:
-        return action.robot;
+    case UPDATE_ROBOT:
+      return action.robot;
+    case DELETE_ROBOT:
+      return action.robot;
     case CLEAR_ROBOT:
       return action.robot;
     default:
