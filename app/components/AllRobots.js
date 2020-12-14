@@ -25,10 +25,6 @@ export class AllRobots extends React.Component {
   }
 
   updateLocalList(robot) {
-    //...
-    // console.log("tried to update list");
-    // console.log("deez props", this.props);
-    // console.log("deez state", this.state);
     this.setState({
       ...this.state,
       robots: [...this.state.robots, robot],
@@ -41,8 +37,6 @@ export class AllRobots extends React.Component {
       ...this.state,
       robots: [...newList],
     });
-
-    console.log('new remove state:',this.state)
   }
 
   render() {

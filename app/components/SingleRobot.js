@@ -22,9 +22,6 @@ export class SingleRobot extends React.Component {
       ? this.props.storeRobot
       : {};
 
-    console.log("single robot props", this.props);
-    console.log("single robot state", this.state);
-
     if (
       !robot ||
       !robot.id ||
@@ -45,10 +42,7 @@ export class SingleRobot extends React.Component {
 
   async handleDelete(robotId) {
     try {
-      console.log("trying to delete:", robotId);
       const deleted = await this.props.deleteRobot(robotId);
-      console.log("deleted response:", deleted);
-      console.log("do we have a removeFromLocalList:", this.props);
       this.props.removeFromLocalList(robotId);
     } catch (err) {
       console.error(err);
@@ -73,9 +67,6 @@ export class SingleRobot extends React.Component {
   }
 
   render() {
-
-    console.log("single robot props", this.props);
-    console.log("single robot state", this.state);
 
     const robot =
       this.state.robot && this.state.robot.id
@@ -112,7 +103,7 @@ export class SingleRobot extends React.Component {
     const { ranOnce } = this.state;
 
     return (
-      <div>
+      <div className="single-robot-section">
         <Robot
           deleteRobot={this.handleDelete}
           robot={robot}

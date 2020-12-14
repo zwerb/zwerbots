@@ -46,11 +46,9 @@ export class CreateProject extends Component {
     });
     try {
       event.preventDefault();
-      console.log("Just submitted:", this.state.formState);
       // const res = await axios.post("/api/robots",this.state);
       const response = await this.props.addProject(this.state.formState);
       if (response.status && response.status > 201) {
-        console.log("Need to put a user-indicator here", response);
         this.setState({
           formDetails: { ...this.state.formDetails, error: response.data },
         });
@@ -104,21 +102,17 @@ export class CreateProject extends Component {
         };
     return (
       <div className="robot-form">
-        {console.log("createrproj props:", this.props)}
-        {console.log("createrproj state:", this.state)}
         <RobotForm
           onChange={
             this.onChange
               ? this.onChange
               : () => {
-                  console.log("onChange");
                 }
           }
           onSubmit={
             this.onSubmit
               ? this.onSubmit
               : () => {
-                  console.log("onSubmit");
                 }
           }
           toggleHidden={this.toggleHidden}

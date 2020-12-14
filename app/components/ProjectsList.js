@@ -8,7 +8,6 @@ export const ProjectsList = (props) => {
 
   return (
     <div className="all-projects">
-      {console.log("projects list props", props)}
       {!ranOnce ? (
         <SingleMessage
           message={{

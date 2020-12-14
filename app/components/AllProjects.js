@@ -27,18 +27,12 @@ export class AllProjects extends React.Component {
   }
 
   updateLocalList(project) {
-    //...
-    console.log("tried to update list");
-    console.log("deez props", this.props);
-    console.log("deez state", this.state);
     this.setState({
       projects: [...this.state.projects, project],
     });
   }
 
   render() {
-    // !REPLACE - uncomment
-    console.log("projects props", this.props);
     const { projects } = this.state.projects ? this.state : [];
     return (
       <div className="projects-section">

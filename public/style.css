@@ -270,6 +270,7 @@ main {
   display: inline-block;
   font-size: 1.1em;
   border-radius: 2px;
+  width: 100%;
 }
 
 .form-details .submit-button {
@@ -306,11 +307,12 @@ main {
 
 .form-detail{
   font-size: 0.9em;
-  margin: 5px;
+  margin: 5px 0 5px 0;
   padding: 5px;
   background-color: #ace3d6;
   align-self: left;
-  width: 100%
+  width: 100%;
+  
 }
 
 .form-detail.invalid{
@@ -386,6 +388,17 @@ main {
   list-style: none;
   flex-basis: 1;
   align-content: flex-start;
+}
+
+.single-robot-section {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+}
+
+.single-robot-clear {
+  display: flex;
+  justify-content: center;
 }
 
 .single-robot {

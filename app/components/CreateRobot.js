@@ -111,14 +111,11 @@ export class CreateRobot extends Component {
             imageUrl: "/images/robots/" + this.state.formState.imageUrl,
           };
 
-      console.log('submitting robot',RobotToCreate)
-
       const response = this.props.updateObject
         ? await this.props.updateRobot(RobotToCreate)
         : await this.props.addRobot(RobotToCreate);
 
       if (response.status && response.status > 202) {
-        console.log("Need to put a user-indicator here", response);
         this.setState({
           formDetails: {
             ...this.state,
@@ -186,21 +183,17 @@ export class CreateRobot extends Component {
         };
     return (
       <div className="robot-form">
-        {console.log("createrobot props:", this.props)}
-        {console.log("createrobot state:", this.state)}
         <RobotForm
           onChange={
             this.onChange
               ? this.onChange
               : () => {
-                  console.log("onChange");
                 }
           }
           onSubmit={
             this.onSubmit
               ? this.onSubmit
               : () => {
-                  console.log("onSubmit");
                 }
           }
           toggleHidden={this.toggleHidden}

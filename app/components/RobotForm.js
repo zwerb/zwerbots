@@ -27,9 +27,6 @@ const RobotForm = (props) => {
     .filter((keyElem) => keyElem != "id")
     .filter((keyElem) => !state[keyElem] || state[keyElem].length < 1);
 
-console.log('form valid inputs,',formValidInputs)
-console.log('form state,',state)
-
   const formDisabled =
   (formInvalidInputs.length > 0 && !props.updateObject) ||
     (props.updateObject && formValidInputs.length < 1);
@@ -37,13 +34,6 @@ console.log('form state,',state)
   const { formObjectRules } = props.formObjectRules
     ? props
     : { formObjectRules: {} };
-
-  console.log("form props: ", props);
-  // console.log("form robot: ", robot);
-  // console.log("form details: ", formDetails);
-  // console.log("form disabled: ", formDisabled);
-  // console.log("form has good input for: ", formValidInputs);
-  // console.log("form has invalid input for: ", formInvalidInputs);
 
   return (
     <div className="single-form">
@@ -77,13 +67,13 @@ console.log('form state,',state)
                   Object.keys(formObjectRules[keyElem])[0] == "select" ? (
                     <select name={keyElem} value={state[keyElem]}>
                       {formObjectRules[keyElem]["select"].map((optionElem) => (
-                        <option value={optionElem}>{optionElem}</option>
+                        <option key={optionElem} value={optionElem}>{optionElem}</option>
                       ))}
                     </select>
                   ) : (
                     <input
                       placeholder={formObject[keyElem]}
-                      value={state[keyElem]}
+                      value={state[keyElem]||""}
                       onChange={onChange}
                       type="text"
                       name={keyElem}
@@ -102,6 +92,7 @@ console.log('form state,',state)
           >
             Submit
           </button>
+         
 
           {formDetails.error && formDetails.error.length > 0 ? (
             <div className="err-box">{formDetails.error}</div>

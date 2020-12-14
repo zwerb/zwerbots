@@ -69,10 +69,6 @@ export const RobotsList = (props) => {
 
   const robotsDisplay = sortedRobots;
 
-  console.log("sortBy, sortDesc", sortBy, sortDesc);
-  console.log(robotsDisplay.map((robot) => robot.id));
-  console.log('robots display',robotsDisplay)
-
   return (
     <div className="all-robots">
       {!ranOnce ? (

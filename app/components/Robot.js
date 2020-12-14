@@ -9,10 +9,8 @@ export const Robot = (props) => {
 
   const { deleteRobot } = props.deleteRobot ? props : { deleteRobot: () => {} };
 
-  console.log("robot props", props);
-
   return (
-    <div>
+    <div className="single-robot-clear">
       {!ranOnce ? (
         <SingleMessage
           message={{
