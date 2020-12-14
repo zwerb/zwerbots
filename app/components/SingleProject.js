@@ -6,7 +6,7 @@ import {
   fetchProject,
   clearProject,
   fetchUnassignRobot,
-  fetchUpdateProject
+  fetchUpdateProject,
 } from "../redux/singleProject";
 import { SingleMessage } from "./SingleMessage";
 import { Project } from "./Project";
@@ -60,13 +60,13 @@ export class SingleProject extends React.Component {
   async toggleCompleted() {
     try {
       const project = this.state.project;
-      const projectToUpdate = {id: project.id, completed: !project.completed}
+      const projectToUpdate = { id: project.id, completed: !project.completed };
       const updated = await this.props.updateProject(projectToUpdate);
       this.setState({
         ...this.state,
         project: {
           ...this.state.project,
-          completed: !project.completed
+          completed: !project.completed,
         },
       });
     } catch (err) {
@@ -105,11 +105,12 @@ export class SingleProject extends React.Component {
   }
 
   render() {
-    const { project } = this.state.project && this.state.project.id
-      ? this.state
-      : this.props.project
-      ? this.props
-      : {};
+    const { project } =
+      this.state.project && this.state.project.id
+        ? this.state
+        : this.props.project && this.props.project.id
+        ? this.props
+        : {};
 
     const robots =
       project && project.robots
@@ -129,36 +130,44 @@ export class SingleProject extends React.Component {
           ))
         : [];
     const message =
-      project && robots && robots.length > 0
+      project && project.id && robots && robots.length > 0
         ? {
             title: "Robots",
             header: `Assigned to Project # ${project.id}:`,
             content: robots,
             imageUrl: "/images/graphics/robots.png",
           }
-        : {
+        : robots && robots.length > 0
+        ? {
             title: "Robots",
             header: `None Assigned to Project #: ${project.id}`,
+            imageUrl: "/images/graphics/projects.png",
+          }
+        : {
+            title: "Robots",
+            header: `None Assigned.`,
             imageUrl: "/images/graphics/projects.png",
           };
 
     const { ranOnce } = this.state;
     return (
-
       <div className="single-project-section">
         <Project
           deleteProject={this.handleDelete}
           project={project}
           ranOnce={ranOnce}
-          toggleCompleted={this.props.match?this.toggleCompleted:()=>{}}
+          toggleCompleted={this.props.match ? this.toggleCompleted : () => {}}
         />
-        {this.props.match && this.props.match.params ? (
+        {this.props.match &&
+        this.props.match.params &&
+        project &&
+        project.id ? (
           <SingleMessage message={message} />
         ) : (
           ""
         )}
 
-        {this.props.match && this.state.ranOnce ? (
+        {this.props.match && this.state.ranOnce && project && project.id ? (
           <CreateProject
             project={project}
             handleUpdate={this.handleUpdate}
@@ -197,7 +206,7 @@ const mapDispatch = (dispatch) => {
     updateProject: (project) => dispatch(fetchUpdateProject(project)),
     clearProject: () => dispatch(clearProject()),
     unassignRobot: (projectId, robotId) =>
-    dispatch(fetchUnassignRobot(projectId, robotId)),
+      dispatch(fetchUnassignRobot(projectId, robotId)),
   };
 };
 

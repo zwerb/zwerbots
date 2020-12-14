@@ -150,13 +150,13 @@ export class SingleRobot extends React.Component {
           }
           match={this.props.match ? this.props.match : undefined}
         />
-        {this.props.match && this.props.match.params ? (
+        {this.props.match && this.props.match.params && robot && robot.id ? (
           <SingleMessage message={message} />
         ) : (
           ""
         )}
 
-        {this.props.match ? (
+        {this.props.match && robot && robot.id ? (
           <CreateRobot
             robot={robot}
             handleUpdate={this.handleUpdate}

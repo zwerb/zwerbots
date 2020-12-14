@@ -31,7 +31,7 @@ The requirements below are broken into separate **tiers**, which model the way w
   - [x] deadline - a date
   - [x] priority - an integer between 1 and 10
   - [x] completed - boolean value, defaults to false
-  - [?] description - extremely large text
+  - [x] description - extremely large text
 - [x] Robots may be associated with many projects. Likewise, projects may be associated with many robots.
 
 #### Seed
@@ -161,10 +161,10 @@ Congrats! You have completed your fifth vertical slice! Make sure to `commit -m 
 #### Finishing Touches
 
 - [x] If a user attempts to add a new robot or project without a required field, a helpful message should be displayed
-- [ ] If a user attempts to access a page that doesn't exist (ex. `/potato`), a helpful "not found" message should be displayed
-- [ ] If a user attempts to view a robot/project that doesn't exist, a helpful message should be displayed
-- [ ] Whenever a component needs to wait for data to load from the server, a "loading" message should be displayed until the data is available
-- [ ] Overall, the app is spectacularly styled and visually stunning
+- [x] If a user attempts to access a page that doesn't exist (ex. `/potato`), a helpful "not found" message should be displayed
+- [x] If a user attempts to view a robot/project that doesn't exist, a helpful message should be displayed
+- [x] Whenever a component needs to wait for data to load from the server, a "loading" message should be displayed until the data is available
+- [?] Overall, the app is spectacularly styled and visually stunning
 
 #### Ordering
 
@@ -195,7 +195,7 @@ Congrats! You have completed your fifth vertical slice! Make sure to `commit -m 
 - [ ] Sequelize (Project): deadline must be a valid date
 - [ ] Navigation: navbar to navigate to home, robots
 - [ ] Navigation: navbar to navigate to projects
-- [ ] Seed File: creates at least one robot that has several projects
-- [ ] Seed File: creates at least one project that has several robots
+- [x] Seed File: creates at least one robot that has several projects
+- [x] Seed File: creates at least one project that has several robots
 
 </details>

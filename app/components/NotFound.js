@@ -15,7 +15,6 @@ export const NotFound = (props) => {
       `The route you were looking for:`,
       triedPath,
       `was not found.`,
-      <Link to={previousPath}>Back to Previous</Link>,
       <Link to="/">Back to Home</Link>,
     ],
   };
