@@ -2,7 +2,12 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { fetchRobot, clearRobot, fetchDeleteRobot,fetchUnassignProject } from "../redux/singleRobot";
+import {
+  fetchRobot,
+  clearRobot,
+  fetchDeleteRobot,
+  fetchUnassignProject,
+} from "../redux/singleRobot";
 import { SingleMessage } from "./SingleMessage";
 import { Robot } from "./Robot";
 import CreateRobot from "./CreateRobot";
@@ -54,17 +59,23 @@ export class SingleRobot extends React.Component {
     try {
       this.setState({
         ...this.state,
-        robot: { ...this.state.robot, ...robot, projects: this.state.robot.projects },
+        robot: {
+          ...this.state.robot,
+          ...robot,
+          projects: this.state.robot.projects,
+        },
       });
     } catch (err) {
       console.error(err);
     }
   }
 
-  async handleUnassign(robotId,projectId) {
+  async handleUnassign(robotId, projectId) {
     try {
-      this.props.unassignProject(robotId,projectId);
-      const newProjects = this.state.robot.projects.filter(project=>project.id!=projectId)
+      this.props.unassignProject(robotId, projectId);
+      const newProjects = this.state.robot.projects.filter(
+        (project) => project.id != projectId
+      );
       this.setState({
         ...this.state,
         robot: { ...this.state.robot, projects: newProjects },
@@ -81,10 +92,6 @@ export class SingleRobot extends React.Component {
   }
 
   render() {
-
-console.log('singlerobot state',this.state)
-console.log('singlerobot props',this.props)
-
     const robot =
       this.state.robot && this.state.robot.id
         ? this.state.robot
@@ -96,10 +103,20 @@ console.log('singlerobot props',this.props)
 
     const projects =
       robot && robot.projects
-        ? robot.projects.map((project) => (<span key={project.id} ><button onClick={()=>this.handleUnassign(this.state.robot.id,project.id)} className="unassign-button" type="button">X</button>
-            <Link to={`/projects/${project.id}`}>
-              {project.id}: {project.title}
-            </Link>
+        ? robot.projects.map((project) => (
+            <span key={project.id}>
+              <button
+                onClick={() =>
+                  this.handleUnassign(this.state.robot.id, project.id)
+                }
+                className="unassign-button"
+                type="button"
+              >
+                X
+              </button>
+              <Link to={`/projects/${project.id}`}>
+                {project.id}: {project.title}
+              </Link>
             </span>
           ))
         : [];
@@ -140,7 +157,12 @@ console.log('singlerobot props',this.props)
         )}
 
         {this.props.match ? (
-          <CreateRobot robot={robot} handleUpdate={this.handleUpdate} robotId={robot.id} updateObject={true} />
+          <CreateRobot
+            robot={robot}
+            handleUpdate={this.handleUpdate}
+            robotId={robot.id}
+            updateObject={true}
+          />
         ) : (
           ""
         )}
@@ -172,7 +194,8 @@ const mapDispatch = (dispatch) => {
     getRobot: (robotId) => dispatch(fetchRobot(robotId)),
     clearRobot: () => dispatch(clearRobot()),
     deleteRobot: (robotId) => dispatch(fetchDeleteRobot(robotId)),
-    unassignProject: (robotId,projectId) => dispatch(fetchUnassignProject(robotId,projectId)),
+    unassignProject: (robotId, projectId) =>
+      dispatch(fetchUnassignProject(robotId, projectId)),
   };
 };
 

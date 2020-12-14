@@ -48,7 +48,6 @@ router.delete("/:projectId", async (req, res, next) => {
         id: req.params.projectId,
       },
     });
-    console.log("delete repsonse: ", response);
 
     const project = response.data ? response.data : response;
 
@@ -80,7 +79,6 @@ router.delete("/:projectId/:robotId", async (req, res, next) => {
 
 router.put("/:projectId", async (req, res, next) => {
   try {
-    console.log("update api req body: ", req.body);
 
     const response = await Project.update(req.body, {
       where: {
@@ -90,12 +88,10 @@ router.put("/:projectId", async (req, res, next) => {
       plain: true,
     });
 
-    console.log("update api repsonse: ", response);
 
     const project =
       response&& response[1] ? response[1] : response;
 
-      console.log("update api project: ", project);
 
     res.status(202).json(project);
   } catch (error) {

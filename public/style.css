@@ -340,6 +340,10 @@ main {
   width: 100%
 }
 
+.form-warning-message{
+  text-align: center;
+}
+
 .success-box a{
   font-size: 1em;
   text-decoration: underline;
@@ -515,10 +519,21 @@ main {
   max-width: 60%;
 }
 
+.single-project-section {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+}
+
+.single-project-clear {
+  display: flex;
+  justify-content: center;
+}
+
 .single-project {
   display: flex;
   flex-flow: column;
-  justify-content: space-around;
+  justify-content: flex-start;
   padding: 0;
   margin: 0;
   list-style: none;
@@ -571,7 +586,7 @@ main {
 
   display: flex;
   flex-flow: row nowrap;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
 }
 
@@ -596,6 +611,10 @@ main {
 
 .completed {
   color: forestgreen;
+}
+
+.completed-button:hover{
+  baclground: beige;
 }
 
 .in-progress {
@@ -636,7 +655,8 @@ main {
   border: 1px solid silver;
   width: auto;
   background-color: lightgray;
-  justify-content: center;
+  justify-content: space-between;
+  display: flex;
 }
 
 .imminent {

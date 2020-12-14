@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { fetchProjects } from "../redux/projects";
-import { fetchDeleteProject } from "../redux/singleProject";
+import { fetchDeleteProject, fetchUpdateProject, updateProject } from "../redux/singleProject";
 import { ProjectsList } from "./ProjectsList";
 import CreateProject from "./CreateProject";
 
@@ -45,8 +45,12 @@ export class AllProjects extends React.Component {
   }
 
   render() {
+    const projects = this.state.localProjects
+      ? this.state.localProjects
+      : this.state.projects
+      ? this.state.projects
+      : [];
 
-    const { projects } = this.state.projects ? this.state : [];
     return (
       <div className="projects-section">
         <h4>Projects</h4>
@@ -74,6 +78,7 @@ const mapDispatch = (dispatch) => {
   return {
     getProjects: () => dispatch(fetchProjects()),
     deleteProject: (projectId) => dispatch(fetchDeleteProject(projectId)),
+    updateProject: (project) => dispatch(fetchUpdateProject(project)),
   };
 };
 

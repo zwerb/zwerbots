@@ -103,7 +103,7 @@ const RobotForm = (props) => {
           {formDetails.success && formDetails.success.length > 0 ? (
             <div className="success-box">{formDetails.success[0]}</div>
           ) : (
-            <div>
+            <div className="form-warning-message">
               {formDisabled ? (
                 props.updateObject ? (
                   <p>Please update one or more fields</p>

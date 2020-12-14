@@ -23,7 +23,7 @@ export const ProjectsList = (props) => {
               key={project.id}
               project={project}
               removeFromLocalList={
-                props.removeFromLocalList ? props.removeFromLocalList : () => {}}
+              props.removeFromLocalList ? props.removeFromLocalList : () => {}}
               deleteProject={props.deleteProject ? props.deleteProject : () => {}}
             />
           );

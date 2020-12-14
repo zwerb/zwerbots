@@ -5,18 +5,21 @@ import { Link } from "react-router-dom";
 import {
   fetchProject,
   clearProject,
-  fetchDeleteProject,
   fetchUnassignRobot,
+  fetchUpdateProject
 } from "../redux/singleProject";
 import { SingleMessage } from "./SingleMessage";
 import { Project } from "./Project";
+import CreateProject from "./CreateProject";
 
 export class SingleProject extends React.Component {
   constructor(props) {
     super(props);
     this.state = { ranOnce: false };
     this.handleDelete = this.handleDelete.bind(this);
+    this.handleUpdate = this.handleUpdate.bind(this);
     this.handleUnassign = this.handleUnassign.bind(this);
+    this.toggleCompleted = this.toggleCompleted.bind(this);
   }
 
   async componentDidMount() {
@@ -54,6 +57,38 @@ export class SingleProject extends React.Component {
     }
   }
 
+  async toggleCompleted() {
+    try {
+      const project = this.state.project;
+      const projectToUpdate = {id: project.id, completed: !project.completed}
+      const updated = await this.props.updateProject(projectToUpdate);
+      this.setState({
+        ...this.state,
+        project: {
+          ...this.state.project,
+          completed: !project.completed
+        },
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  async handleUpdate(project) {
+    try {
+      this.setState({
+        ...this.state,
+        project: {
+          ...this.state.project,
+          ...project,
+          robots: this.state.project.robots,
+        },
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
   async handleUnassign(projectId, robotId) {
     try {
       this.props.unassignRobot(projectId, robotId);
@@ -70,8 +105,7 @@ export class SingleProject extends React.Component {
   }
 
   render() {
-
-    const { project } = this.state.project
+    const { project } = this.state.project && this.state.project.id
       ? this.state
       : this.props.project
       ? this.props
@@ -109,19 +143,32 @@ export class SingleProject extends React.Component {
           };
 
     const { ranOnce } = this.state;
-
     return (
-      <div>
+
+      <div className="single-project-section">
         <Project
           deleteProject={this.handleDelete}
           project={project}
           ranOnce={ranOnce}
+          toggleCompleted={this.props.match?this.toggleCompleted:()=>{}}
         />
         {this.props.match && this.props.match.params ? (
           <SingleMessage message={message} />
         ) : (
           ""
         )}
+
+        {this.props.match && this.state.ranOnce ? (
+          <CreateProject
+            project={project}
+            handleUpdate={this.handleUpdate}
+            projectId={project.id}
+            updateObject={true}
+          />
+        ) : (
+          ""
+        )}
+
         {this.props.match && this.props.match.params ? (
           <div>
             <div style={{ textAlign: "center" }}>
@@ -147,9 +194,10 @@ const mapState = (state) => {
 const mapDispatch = (dispatch) => {
   return {
     getProject: (projectId) => dispatch(fetchProject(projectId)),
+    updateProject: (project) => dispatch(fetchUpdateProject(project)),
     clearProject: () => dispatch(clearProject()),
     unassignRobot: (projectId, robotId) =>
-      dispatch(fetchUnassignRobot(projectId, robotId)),
+    dispatch(fetchUnassignRobot(projectId, robotId)),
   };
 };
 

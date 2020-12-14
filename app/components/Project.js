@@ -7,9 +7,9 @@ import moment from "moment";
 export const Project = (props) => {
   const { project } = props.project ? props : {};
   const { ranOnce } = props;
-  const { deleteProject } = props.deleteProject ? props : { deleteProject: () => {} };
-
-
+  const { deleteProject } = props.deleteProject
+    ? props
+    : { deleteProject: () => {} };  
   return (
     <div>
       {!ranOnce ? (
@@ -26,19 +26,25 @@ export const Project = (props) => {
             {props.match ? (
               ""
             ) : (
-              <button
-                type="button"
-                onClick={() => {
-                  deleteProject(project.id);
-                }}
-                className="project-delete-button"
-              >
-                X
-              </button>
+              <span>
+                {!props.match ? (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      deleteProject(project.id);
+                    }}
+                    className="project-delete-button"
+                  >
+                    X
+                  </button>
+                ) : (
+                  ""
+                )}
+              </span>
             )}
           </div>
           <div className="project-meta-data">
-            <div className="project-id">{project.id}</div>
+            <div className="project-id">ID: {project.id}</div>
             <div className="project-title">
               <Link to={`/projects/${project.id}`}>{project.title}</Link>
             </div>
@@ -51,19 +57,32 @@ export const Project = (props) => {
             >
               <div className="status-text">
                 {project.completed ? (
-                  <span>&#x2611;</span>
+                  <span
+                    onClick={() => {
+                      props.toggleCompleted();
+                    }}
+                    className="complete-button"
+                  >
+                    &#x2611;
+                  </span>
                 ) : (
-                  <span>&#x2610;</span>
+                  <span
+                    onClick={() => {
+                      props.toggleCompleted();
+                    }}
+                  >
+                    &#x2610;
+                  </span>
                 )}
               </div>
             </div>
           </div>
           <div className="project-details">
             <div className="project-deadline">
-              <strong>Due:</strong>{" "}
+              <span><strong>Due:</strong>{" "}
               {project.deadline
                 ? moment(project.deadline).fromNow()
-                : "No Deadline"}
+              : "No Deadline"}</span><span><strong>Priority:</strong> {project.priority}</span>
             </div>
             <div className="project-description">
               <strong>Description:</strong> {project.description}
