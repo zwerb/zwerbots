@@ -416,7 +416,7 @@ main {
   background: seashell;
   padding: 5px;
   width: 300px;
-  min-height: 180px;
+  min-height: 200px;
   border: 1px solid silver;
   margin-top: 10px;
 }
@@ -559,7 +559,7 @@ main {
   background: lavenderblush;
   padding: 5px;
   width: 340px;
-  min-height: 180px;
+  min-height: 240px;
   border: 1px solid silver;
   margin-top: 10px;
 }
