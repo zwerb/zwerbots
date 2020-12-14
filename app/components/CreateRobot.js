@@ -208,13 +208,6 @@ export class CreateRobot extends Component {
   }
 }
 
-// // !REPLACE - will need this for update robot
-// const mapState = (state) => {
-//   return {
-//     robot: state.robot,
-//   };
-// };
-
 const mapDispatch = (dispatch) => {
   return {
     addRobot: (robot) => dispatch(fetchAddRobot(robot)),

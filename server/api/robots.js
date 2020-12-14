@@ -16,7 +16,6 @@ router.get("/", async (req, res, next) => {
 
 router.get("/images", async (req, res, next) => {
   try {
-    // !REPLACE - Below Development Comment
     const images = await fs.readdir(
       path.join(__dirname, "../../public/images/robots")
     );
